@@ -1,0 +1,31 @@
+Use Divide and Conquer method to figure out the merge sort problem.
+
+a = [1,10,3,2,16,96,33,15,110,32,42,6,-6,39]
+
+def mergeSort(lis):
+    if len(lis) == 1:
+        return lis
+    
+    mid = int(len(lis)/2)
+    firstHalf =  mergeSort(lis[:mid])
+    secondHalf = mergeSort(lis[mid:])
+    return merge(firstHalf,secondHalf)
+    
+def merge(lis_1,lis_2):
+    result = []
+    i = 0
+    j = 0
+    while  i < len(lis_1) and j < len(lis_2):
+        if(lis_1[i] < lis_2[j]):
+            result.append(lis_1[i])
+            i+=1
+        else:
+            result.append(lis_2[j])
+            j+=1
+    print(result)
+    result += lis_1[i:]
+    result += lis_2[j:]
+    return result
+
+result = mergeSort(a)
+print(result)
