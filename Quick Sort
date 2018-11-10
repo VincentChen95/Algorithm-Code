@@ -1,0 +1,28 @@
+
+a = [32,1,-9,99,3,-4,12,44,222,444]
+
+def get_smaller(pivot,inp):
+    result = []
+    for i in range(len(inp)):
+        if(inp[i]<pivot):
+            result.append(inp[i])
+    return result
+
+def get_bigger(pivot,inp):
+    result = []
+    for i in range(len(inp)):
+        if(inp[i]>=pivot):
+            result.append(inp[i])
+    return result
+
+def quick_sort(inp):
+    if(len(inp)<=1):
+        return inp
+    else:
+        pivot = inp[0]
+        smaller_half = quick_sort(get_smaller(pivot,inp[1:]))
+        larger_half = quick_sort(get_bigger(pivot,inp[1:]))
+        return smaller_half + [pivot] +larger_half
+    
+result = quick_sort(a)
+print(result)
