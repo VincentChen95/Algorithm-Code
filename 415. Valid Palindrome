@@ -1,0 +1,42 @@
+Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+public class Solution {
+    /**
+     * @param s: A string
+     * @return: Whether the string is a valid palindrome
+     */
+    public boolean isPalindrome(String s) {
+        // write your code here
+        if (s==null||s.length()==0){
+            return true;
+        }
+        int front = 0;
+        int back = s.length()-1;
+        while(front<back){
+            // maybe the beigning is empty
+            while(front<s.length() && !isValid(s.charAt(front))){
+                front++;
+            }
+            if(front==s.length()){
+                return true;
+            }
+            while(back>=0 && !isValid(s.charAt(back))){
+                back--;
+            }
+            if(back == 0){
+                return true;
+            }
+            if(Character.toLowerCase(s.charAt(front)) == Character.toLowerCase(s.charAt(back))){
+                front++;
+                back--;
+            }else{
+                break;
+            }
+        }
+        return back<=front;
+    }
+    public boolean isValid(char c){
+        // .isDigit judge number
+        return Character.isLetter(c)||Character.isDigit(c);
+    }
+}
