@@ -1,0 +1,40 @@
+Description
+Implement a data structure, provide two interfaces:
+
+add(number). Add a new number in the data structure.
+topk(). Return the top k largest numbers in this data structure. k is given when we create the data structure.
+
+public class Solution {
+    /*
+    * @param k: An integer
+    */
+    private Queue<Integer> pq;
+    private int k;
+    public Solution(int k) {
+        // do intialization if necessary
+        pq = new PriorityQueue<>();
+        this.k=k;
+    }
+
+    /*
+     * @param num: Number to be added
+     * @return: nothing
+     */
+    public void add(int num) {
+        // write your code here
+        pq.offer(num);
+        while(pq.size()>k){
+            pq.poll();
+        }
+    }
+
+    /*
+     * @return: Top k element
+     */
+    public List<Integer> topk() {
+        // write your code here
+        List<Integer> result = new ArrayList<>(pq);
+        Collections.sort(result, Collections.reverseOrder());
+        return result;
+    }
+}
