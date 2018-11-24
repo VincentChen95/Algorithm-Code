@@ -1,0 +1,25 @@
+public class Solution {
+    /**
+     * @param nums: A set of numbers
+     * @return: A list of lists
+     */
+    public List<List<Integer>> subsets(int[] nums) {
+        // write your code here
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        List<Integer> temp = new ArrayList<Integer>();
+        dfs(nums,0,temp,result);
+        return result;
+    }
+    
+    public void dfs(int[] nums,int index,List<Integer> subset, List<List<Integer>> result){
+        if(index == nums.length){
+            result.add(new ArrayList<Integer>(subset));
+            return;
+        }
+        subset.add(nums[index]);
+        dfs(nums,index+1,subset,result);
+        subset.remove(subset.size() - 1);
+        dfs(nums, index + 1, subset, result);
+    }
+}
