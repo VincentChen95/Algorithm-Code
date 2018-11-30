@@ -1,0 +1,47 @@
+public class Solution {
+    /**
+     * @param root: A Tree
+     * @return: Inorder in ArrayList which contains node values.
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        // write your code here
+        List<Integer> result = new LinkedList<Integer>();
+        if(root ==null){
+            return result;
+        }
+        helper(result,root);
+        return result;
+    }
+    private void helper(List<Integer> result,TreeNode root){
+        if(root.left!=null){
+            helper(result,root.left);
+        }
+        result.add(root.val);
+        if(root.right!=null){
+            helper(result,root.right);
+        }
+    }
+}
+
+public class Solution {
+    /**
+     * @param root: A Tree
+     * @return: Inorder in ArrayList which contains node values.
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        // write your code here
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        List<Integer> result = new LinkedList<Integer>();
+        TreeNode temp = root;
+        while(temp != null || !stack.empty()){
+            while(temp!=null){
+                stack.push(temp);
+                temp=temp.left;
+            }
+            temp = stack.pop();
+            result.add(temp.val);
+            temp = temp.right;
+        }
+        return result;
+    }
+}
