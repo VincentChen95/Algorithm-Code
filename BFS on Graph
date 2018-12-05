@@ -1,3 +1,7 @@
+# BFS for graph
+# O(|V|^2) with a adjacency matrix. For each element, it takes |V| run time to check the neighbers.
+# O(|V| + |E|) with a adjacency list. For each element, it just take O(1) run time to know its neighbers.
+
 import queue 
 
 graph = {
