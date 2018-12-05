@@ -1,0 +1,31 @@
+#graph = {
+#        "A":{"B","C"},
+#        "B":{"A","D","C"},
+#        "C":{"A","B","D","E"},
+#        "D":{"B","C","E","F"},
+#        "E":{"C","D"},
+#        "F":{"D"},
+#        }
+
+graph = {
+        "A":{"B","C"},
+        "B":{"D","A"},
+        "C":{"A","E"},
+        "D":{"B","F"},
+        "E":{"C","G"},
+        "F":{"D"},
+        "G":{"E"}       
+        }
+
+def dfs(graph,s):
+    path = []
+    visited = [s]
+    stack = [s]
+    while(len(stack)!=0):
+        temp = stack.pop()
+        path.append(temp)
+        for i in graph[temp]:
+            if i not in visited:
+                stack.append(i)
+                visited.append(i)
+    return path
