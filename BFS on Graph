@@ -1,0 +1,37 @@
+import queue 
+
+graph = {
+        "A":{"B","C"},
+        "B":{"A","C","D"},
+        "C":{"A","B","D","E"},
+        "D":{"B","C","E","F"},
+        "E":{"C","D"},
+        "F":{"D"},
+        }
+
+#initialize the element, visited as 1, 
+def init_graph(graph,s):
+    visited = {s:1}
+    for vertex in graph:
+        if(vertex!=s):
+            visited[vertex] = 0
+    return visited
+
+def bfs(graph,s):
+    path = []
+    q = queue.Queue()
+    #put in the first element
+    q.put(s)
+    visited = init_graph(graph,s)
+#    print(visited)
+    while(q.empty() == 0):
+        temp = q.get()
+        path.append(temp)
+        for i in graph[temp]:
+            if visited[i] == 0:
+                q.put(i)
+                visited[i] = 1
+    return path
+        
+path = bfs(graph,s = 'A')
+print(path)
