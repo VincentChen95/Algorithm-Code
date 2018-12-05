@@ -1,0 +1,30 @@
+graph = {
+        "A":{"B","C"},
+        "B":{},
+        "C":{"B","D","E"},
+        "D":{"F"},
+        "E":{"F"},
+        "F":{"G"},
+        "G":{}
+        }
+
+def top_order(graph):
+    # count how many incoming edges each vertex has
+    edges_count = dict((u,0) for u in graph.keys())
+    # shose the one without incoming edges as the first to process
+    for i in graph:
+        for v in graph[i]:
+             edges_count[v] += 1
+    toProcess = [u for u in edges_count.keys() if edges_count[u]==0]  
+    top_order_result = []
+    while toProcess:
+        temp = toProcess.pop()
+        top_order_result.append(temp)
+        for u in graph[temp]:
+            edges_count[u] -= 1
+            if edges_count[u] ==0:
+                toProcess.append(u)
+    return top_order_result
+        
+top_order_result = top_order(graph)
+print(top_order_result)
