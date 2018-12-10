@@ -1,0 +1,64 @@
+public class Solution {
+    /**
+     * @param org: a permutation of the integers from 1 to n
+     * @param seqs: a list of sequences
+     * @return: true if it can be reconstructed only one or false
+     */
+    public boolean sequenceReconstruction(int[] org, int[][] seqs) {
+        // write your code here
+        //if(seqs==null || seqs.length ==0 || seqs[0].length==0 || org.length>=seqs[0].length-1){
+          //  return false;
+        //}
+        
+        Map<Integer,Set<Integer>> edges = new HashMap<Integer,Set<Integer>>();
+        Map<Integer, Integer> indegree = new HashMap<Integer,Integer>();
+        
+        for(int num:org){
+            edges.put(num,new HashSet<Integer>());
+            indegree.put(num,0);
+        }
+        int n = org.length;
+        int count = 0;
+        
+        for(int[] edge:seqs){
+            count +=edge.length;
+            if(edge.length>=1&& (edge[0]<=0||edge[0]>n)){
+                return false;
+            }
+            for(int i=1;i<edge.length;i++){
+                if(edge[i]<=0||edge[i]>n){
+                    return false;
+                }
+                if(edges.get(edge[i-1]).add(edge[i])){
+                    indegree.put(edge[i],indegree.get(edge[i])+1);
+                }
+            }
+        }
+        // if the number of edges > the number of nodes, there must be multiple topo sequences    
+        if(count<n){
+            return false;
+        }
+        Queue<Integer> queue = new ArrayDeque<Integer>();
+        for(int key:indegree.keySet()){
+            if(indegree.get(key)==0){
+                queue.add(key);
+            }
+        }
+        int cnt=0;
+        // If there are multiple elements in queue, it means there are different topo sequences
+        while(queue.size()==1){
+            int temp = queue.poll();
+            for(int vertex:edges.get(temp)){
+                indegree.put(vertex,indegree.get(vertex)-1);
+                if(indegree.get(vertex)==0){
+                    queue.add(vertex);
+                }
+            }
+            if(temp != org[cnt]){
+                return false;
+            }
+            cnt++;
+        }
+        return cnt == org.length;
+    }
+}
