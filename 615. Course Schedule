@@ -1,0 +1,48 @@
+public class Solution {
+    /*
+     * @param numCourses: a total of n courses
+     * @param prerequisites: a list of prerequisite pairs
+     * @return: true if can finish all courses or false
+     */
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        // write your code here
+        if (prerequisites == null || prerequisites.length == 0 || prerequisites[0].length == 0 || numCourses > prerequisites.length) {
+            return true;
+        }
+        
+        List[] edges = new ArrayList[numCourses];
+        int[] degree = new int[numCourses];
+        
+        for (int i = 0; i < numCourses; i++) {
+            edges[i] = new ArrayList<Integer>();
+        }
+        for (int i = 0; i < numCourses; i++) {
+            degree[prerequisites[i][0]]++;
+            edges[prerequisites[i][1]].add(prerequisites[i][0]);
+        }
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (degree[i] == 0) {
+                queue.offer(i);
+            }
+        }
+        int count = 0;
+        while(!queue.isEmpty()) {
+            int course = (int)queue.poll();
+            count++;
+            for (int i = 0; i < edges[course].size(); i++) {
+                int pointer = (int)edges[course].get(i);// cannot do int transform inside arrray
+                degree[pointer]--;
+                if (degree[pointer] == 0) {
+                    queue.add(pointer);//
+                }
+            }
+        }
+        return count == numCourses;
+    }
+}
+
+
+Notes:
+1. Build graph and in-degree takes O(E).
+2. Topological sort takes O(V+E), the overall time complexity is O(V + E).
