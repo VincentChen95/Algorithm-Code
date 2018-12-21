@@ -1,0 +1,35 @@
+"""
+Definition of ListNode
+class ListNode(object):
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next
+"""
+
+class Solution:
+    """
+    @param head: The first node of linked list
+    @param x: An integer
+    @return: A ListNode
+    """
+    def partition(self, head, x):
+        # write your code here
+        if head == None:
+            return head
+            
+        ahead = ListNode(0)
+        bhead = ListNode(0)
+        atemp = ahead
+        btemp = bhead
+
+        while head is not None:
+            if head.val < x:
+                atemp.next = head
+                atemp = atemp.next
+            else:
+                btemp.next = head
+                btemp = btemp.next
+            head = head.next
+        atemp.next = bhead.next
+        btemp.next = None
+        return ahead.next
