@@ -1,0 +1,41 @@
+"""
+Definition of ListNode
+class ListNode(object):
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next
+"""
+
+class Solution:
+    """
+    @param head: a ListNode
+    @param k: An integer
+    @return: a ListNode
+    """
+    def reverse(self,start,end):
+        newhead = ListNode(0)
+        newhead.next = start
+        while newhead.next!=end:
+            temp = start.next
+            start.next = temp.next
+            temp.next = newhead.next
+            newhead.next = temp
+        return [end,start]
+            
+    def reverseKGroup(self, head, k):
+        # write your code here
+        if head == None:
+            return None
+        newhead = ListNode(0)
+        newhead.next = head;
+        start = newhead
+        while start.next:
+            end = start
+            for i in range(k-1):
+                end = end.next
+                if end.next == None:
+                    return newhead.next
+            res = self.reverse(start.next,end.next)
+            start.next = res[0]
+            start = res[1]
+        return newhead.next
