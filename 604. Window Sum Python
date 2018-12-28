@@ -1,0 +1,18 @@
+class Solution:
+    """
+    @param nums: a list of integers.
+    @param k: length of window.
+    @return: the sum of the element inside the window at each moving.
+    """
+    def winSum(self, nums, k):
+        # write your code here
+        result = []
+        if k > len(nums):
+            return result
+        sub_sum = 0
+        for i, num in enumerate(nums):
+            sub_sum += num
+            if i >= k-1:
+                result.append(sub_sum)
+                sub_sum -= nums[i-k+1]
+        return result
