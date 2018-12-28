@@ -1,0 +1,47 @@
+"""
+Definition of ListNode
+class ListNode(object):
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next
+"""
+
+class Solution:
+    """
+    @param head: the List
+    @param k: rotate to the right k places
+    @return: the list after rotation
+    """
+    def rotateRight(self, head, k):
+        # write your code here
+        if head == None:
+            return head
+            
+        size = 0
+        temp = head
+        
+        while temp.next:
+            temp = temp.next
+            size += 1
+            
+        k = k%(size+1)
+
+        if k == 0:
+            return head
+            
+        temp = head
+        count = 0
+        while count < size - k:
+            temp = temp.next
+            count += 1
+        
+        new_head = temp.next
+        temp.next = None
+        
+        link = new_head
+
+        while link.next:
+            link = link.next
+
+        link.next = head
+        return new_head
