@@ -1,0 +1,22 @@
+class TwoSum:
+    """
+    @param number: An integer
+    @return: nothing
+    """
+    hashmap = {}
+    def add(self, number):
+        # write your code here
+        self.hashmap[number] = self.hashmap.get(number,0) + 1
+
+    """
+    @param value: An integer
+    @return: Find if there exists any pair of numbers which sum is equal to the value.
+    """
+    def find(self, value):
+        # write your code here
+        for i in self.hashmap:
+            if (value - i) in self.hashmap and (value - i) != i:
+                return True
+            if (value -i == i and self.hashmap[i]>1):
+                return True
+        return False
