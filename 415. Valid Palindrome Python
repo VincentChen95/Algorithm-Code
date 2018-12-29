@@ -1,0 +1,23 @@
+class Solution:
+    """
+    @param s: A string
+    @return: Whether the string is a valid palindrome
+    """
+    def isPalindrome(self, s):
+        # write your code here
+        if s == None:
+            return True
+        n = len(s)
+        start = 0
+        end = n - 1
+        while start < end:
+            while not s[start].isdigit() and not s[start].isalpha() and start < end:
+                start +=1
+            while not s[end].isdigit() and not s[end].isalpha() and end > start:
+                end -=1 
+            if start< end and s[start].lower() != s[end].lower():
+                return False
+            
+            start += 1
+            end -= 1
+        return True
