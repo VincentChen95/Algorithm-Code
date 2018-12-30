@@ -1,0 +1,33 @@
+class Solution:
+    """
+    @param nums: an array of integer
+    @param target: An integer
+    @return: An integer
+    """
+    def twoSum6(self, nums, target):
+        # write your code here
+        count = 0
+    
+        if nums == None or len(nums) <= 1:
+            return count
+        nums.sort()
+        
+        n = len(nums)
+        start = 0
+        end = n - 1
+        
+        while start < end :
+            v = nums[start] + nums[end]
+            if v == target:
+                count += 1
+                start += 1
+                end -= 1
+                while start < end and nums[start] == nums[start-1]:
+                    start += 1
+                while start < end and nums[end] == nums[end+1]:
+                    end -= 1
+            elif v > target:
+                end -= 1
+            else:
+                start += 1
+        return count 
