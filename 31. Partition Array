@@ -1,0 +1,37 @@
+class Solution:
+    """
+    @param nums: The integer array you should partition
+    @param k: An integer
+    @return: The index after partition
+    """
+    def partitionArray(self, nums, k):
+        # write your code here
+        if nums == None or len(nums)==0:
+            return 0
+        n = len(nums)
+        start = 0
+        end = n - 1
+        while start < end:
+            if nums[start] >= k and nums[end] >= k:
+                end-=1
+            elif nums[start] >=k and nums[end] < k:
+                temp = nums[end]
+                nums[end] = nums[start]
+                nums[start] = temp
+                start+=1
+                end-=1
+            elif nums[start] < k and nums[end] < k:
+                start+=1
+            else:
+                start +=1
+                end -= 1
+                
+        if nums[-1] < k:
+            return n
+            
+        if nums[start] >=k :
+            return start
+        else:
+            return start+1
+                
+                
