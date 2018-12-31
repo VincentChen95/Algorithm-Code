@@ -1,0 +1,35 @@
+class Solution:
+    """
+    @param num: A list of integers
+    @return: An integer
+    """
+    def longestConsecutive(self, num):
+        # write your code here
+        if num == None:
+            return 0
+        if len(num) == 1:
+            return 1
+
+        hashmap = {}
+        for ele in num:
+            hashmap[ele] = 1
+        max_length = 0
+        for ele in num:
+            if ele in hashmap:
+                left = ele - 1
+                right = ele + 1
+                del hashmap[ele]
+                leng = 1
+                while left in hashmap:
+                    del hashmap[left]
+                    leng += 1
+                    left -= 1
+                while right in hashmap:
+                    del hashmap[right]
+                    leng += 1
+                    right += 1
+                if leng > max_length:
+                    max_length = leng
+        return max_length
+        
+        
