@@ -1,0 +1,38 @@
+class Solution:
+    """
+    @param colors: A list of integer
+    @param k: An integer
+    @return: nothing
+    """
+    def sortColors2(self, colors, k):
+        # write your code here
+        if colors == None or len(colors) == 1:
+            return colors
+        start = 0
+        for i in range(k):
+            colors,start = self.sortCor(colors,start,i)
+        # Special case
+            if colors[start] == i:
+                start += 1
+        return colors
+        
+    def sortCor(self,nums,start,target):
+        n = len(nums)
+        if start == n -1:
+            return nums,start
+        end = n - 1
+        while start < end:
+            if nums[start] == target and nums[end] == target:
+                start += 1
+            elif nums[start] == target and nums[end] != target:
+                start += 1
+                end -= 1
+            elif nums[start] != target and nums[end] == target:
+                temp = nums[start]
+                nums[start] = nums[end]
+                nums[end] = temp
+                start += 1
+                end -= 1
+            else:
+                end -= 1
+        return nums,start
