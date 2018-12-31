@@ -1,0 +1,21 @@
+class Solution:
+    """
+    @param strs: A list of strings
+    @return: A list of strings
+    """
+    def anagrams(self, strs):
+        # write your code here
+        if strs == None or len(strs) == 1:
+            return strs
+            
+        from collections import defaultdict
+        hashmap = defaultdict(list)
+        
+        for word in strs:
+            code = ''.join(sorted(word))
+            hashmap[code].append(word)
+        res = []
+        for item in hashmap:
+            if len(hashmap[item]) >=2 :
+                res += hashmap[item]
+        return res
