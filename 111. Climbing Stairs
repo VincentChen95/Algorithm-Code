@@ -1,0 +1,18 @@
+class Solution:
+    """
+    @param n: An integer
+    @return: An integer
+    """
+    def climbStairs(self, n):
+        # write your code here
+        if n <= 0:
+            return 0
+        sum_list = [None for i in range(n)]
+        for i in range(n):
+            if i == 0:
+                sum_list[i] = 1
+            elif i == 1:
+                sum_list[i] = 2
+            else:
+                sum_list[i] = sum_list[i-1] + sum_list[i-2]
+        return sum_list[-1]
