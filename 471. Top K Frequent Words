@@ -1,0 +1,55 @@
+class ListNone(object):
+    def __init__(self,word,count):
+        self.word = word
+        self.count = count
+        
+class Solution:
+    """
+    @param words: an array of string
+    @param k: An integer
+    @return: an array of string
+    """
+    def topKFrequentWords(self, words, k):
+        # write your code here
+        if words == None or len(words) <k:
+            return words
+            
+        hashmap = {}
+        for word in words:
+            if word not in hashmap:
+                hashmap[word] = 1
+            else:
+                hashmap[word] += 1
+        
+        self.heap = [ListNone(word,hashmap[word]) for word in hashmap.keys()]
+        self.heapsize = len(self.heap)
+        
+        for i in range(self.heapsize-1,-1,-1):
+            self.adjustdown(i)
+        
+        result = []
+        for i in range(k):
+            result.append(self.heap[0].word)
+            self.heap[0] = self.heap[self.heapsize-1]
+            self.heapsize -= 1
+            self.adjustdown(0)
+        return result
+            
+    def adjustdown(self,index):
+        leftchild = lambda x:(x+1)*2-1
+        rightchild = lambda x:(x+1)*2
+        while True:
+            newindex = index
+            value = self.heap[index].count
+            if leftchild(index) < self.heapsize and self.heap[leftchild(index)].count > value:
+                value = self.heap[leftchild(index)].count
+                newindex = leftchild(index)
+                
+            if rightchild(index) < self.heapsize and self.heap[rightchild(index)].count > value:
+                newindex = rightchild(index)
+                
+            if newindex == index:
+                break
+            else:
+                self.heap[newindex], self.heap[index] = self.heap[index], self.heap[newindex]
+                index = newindex
