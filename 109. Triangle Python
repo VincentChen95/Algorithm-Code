@@ -1,0 +1,21 @@
+class Solution:
+    """
+    @param triangle: a list of lists of integers
+    @return: An integer, minimum path sum
+    """
+    def minimumTotal(self, triangle):
+        # write your code here
+        n_layer = len(triangle)
+        result = [triangle[0]]
+        
+        for i in range(1,n_layer):
+            result.append([])
+            for j in range(len(triangle[i])):
+                if j == len(triangle[i])-1:
+                    result[i].append(triangle[i][j]+result[i-1][j-1])
+                elif j == 0:
+                    result[i].append(triangle[i][j]+result[i-1][j])
+                else:
+                    result[i].append(min(result[i-1][j-1],result[i-1][j])+triangle[i][j])
+        min_path = min(result[-1])
+        return min_path
