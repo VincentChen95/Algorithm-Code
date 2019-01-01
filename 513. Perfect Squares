@@ -1,0 +1,21 @@
+class Solution:
+    """
+    @param n: a positive integer
+    @return: An integer
+    """
+    import math
+    def numSquares(self, n):
+        # Write your code here
+        while n % 4 == 0:
+            n /= 4
+        if n % 8 == 7:
+            return 4
+        n = int(n)
+        for i in range(n+1):
+            temp = pow(i,2)
+            if temp <= n:
+                if pow(int(math.sqrt(n - temp)),2) + temp == n: 
+                    return 1 + (0 if temp == 0 else 1)
+            else:
+                break
+        return 3     
