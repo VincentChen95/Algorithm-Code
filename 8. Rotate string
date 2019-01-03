@@ -1,0 +1,17 @@
+class Solution:
+    """
+    @param str: An array of char
+    @param offset: An integer
+    @return: nothing
+    """
+    def rotateString(self, string, offset):
+        if string == None or len(string) == 0:
+            return string
+        offset = offset%len(string)
+        if offset == 0:
+            return string
+        
+        n = len(string)
+        return string[n - offset:] + string[:n-offset]
+        
+ Notes: In python3, we cannot assign any item to change the value of string. However, we can use the slice method.
