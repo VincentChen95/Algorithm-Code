@@ -1,0 +1,22 @@
+class Solution:
+    """
+    @param nums: A set of numbers.
+    @return: A list of lists. All valid subsets.
+    """
+    def subsetsWithDup(self, nums):
+        subsets = []
+        
+        self.dfsWithDedup(sorted(nums), 0, [], subsets)
+        
+        return subsets
+        
+    def dfsWithDedup(self, nums, startIndex, workingSet, subsets):
+        subsets.append(list(workingSet))
+        
+        popped = None
+        for i in range(startIndex, len(nums)):
+            if popped is not None and popped == nums[i]:
+                continue
+            workingSet.append(nums[i])
+            self.dfsWithDedup(nums, i+1, workingSet, subsets)
+            popped = workingSet.pop()
