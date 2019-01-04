@@ -1,0 +1,17 @@
+
+class Solution(object):
+    # @param nestedList a list, each element in the list 
+    # can be a list or integer, for example [1,2,[1,2]]
+    # @return {int[]} a list of integer
+    def flatten(self, nestedList):
+        # Write your code here
+        stack = [nestedList]
+        result = []
+        while stack:
+            ele = stack.pop()
+            if isinstance(ele,int):
+                result.append(ele)
+            else:
+                for j in reversed(ele):
+                    stack.append(j)
+        return result
