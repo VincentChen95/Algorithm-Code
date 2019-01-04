@@ -1,0 +1,22 @@
+class Solution:
+    # @param {int} n an integer
+    # @return {tuple[]} a list of tuple(sum, probability)
+    def dicesSum(self, n):
+        # Write your code here
+        # Count the apperance time of the sum
+        dices_sum = [[0 for j in range(6*n+1)] for i in range(n+1)]
+        
+        for i in range(1,7):
+            dices_sum[1][i] = 1.0/6.0
+        
+        for i in range(2,n+1):
+            for j in range(i,6*n +1):
+                for k in range(1,7):
+                    if j >k :
+                        dices_sum[i][j] += dices_sum[i-1][j-k]
+                dices_sum[i][j] /= 6.0
+                
+        result = []
+        for i in range(n,6*n+1):
+            result.append((i,dices_sum[n][i]))
+        return result
