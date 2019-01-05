@@ -1,0 +1,28 @@
+class Solution:
+    """
+    @param nums: An integer array
+    @return: nothing
+    """
+    def recoverRotatedSortedArray(self, nums):
+        # write your code here
+        if nums == None or len(nums) <= 1:
+            return nums
+        n = len(nums)
+        index = n - 1 
+        
+        for i in range(n-1):
+            if nums[i] > nums[i+1]:
+                index = i
+                break
+        if index == n-1:
+            return nums
+            
+        self.reverse(nums,0,index)
+        self.reverse(nums,index+1,n-1)
+        self.reverse(nums,0,n-1)
+                
+    def reverse(self,nums,start,end):
+        while start < end:
+            nums[start],nums[end] = nums[end],nums[start]
+            start += 1
+            end -= 1
