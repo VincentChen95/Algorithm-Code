@@ -1,0 +1,27 @@
+class Solution:
+    """
+    @param: nums: A list of integers
+    @return: An integer denotes the sum of max two non-overlapping subarrays
+    """
+    def maxTwoSubArrays(self, nums):
+        # write your code here
+        if nums == None or len(nums) == 0:
+            return None
+        n = len(nums)
+        left_prefix = [nums[0]]*n
+        left_max = [nums[0]]*n
+        right_prefix = [nums[-1]]*n
+        right_max = [nums[-1]]*n
+        
+        for i in range(1,n):
+            # If left_prefix[i-1] < 0, we don't need to add it
+            left_prefix[i] = max(nums[i],left_prefix[i-1] + nums[i])
+            # get the max at the left side 
+            left_max[i] = max(left_prefix[i],left_max[i-1])
+            
+            right_prefix[n-1-i] = max(nums[n-1-i],right_prefix[n-i] + nums[n-1-i])
+            right_max[n-1-i] = max(right_max[n-i],right_prefix[n-1-i]) 
+        max_sum = -sys.maxsize    
+        for i in range(n-1):
+            max_sum = max(left_max[i] + right_max[i+1],max_sum)
+        return max_sum
