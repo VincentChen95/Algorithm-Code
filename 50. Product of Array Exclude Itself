@@ -1,0 +1,19 @@
+class Solution:
+    """
+    @param: nums: Given an integers array A
+    @return: A long long array B and B[i]= A[0] * ... * A[i-1] * A[i+1] * ... * A[n-1]
+    """
+    def productExcludeItself(self, nums):
+        # write your code here
+        if nums == None or len(nums) == 0:
+            return None
+        n = len(nums)
+        right = [1]*(n+1)
+        for i in range(n):
+            right[n-1-i] = right[n-i]*nums[n-1-i]
+        temp = 1
+        result = []
+        for i in range(n):
+            result.append(right[i+1]*temp)
+            temp *= nums[i]
+        return result
