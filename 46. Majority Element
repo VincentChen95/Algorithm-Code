@@ -1,0 +1,22 @@
+class Solution:
+    """
+    @param: nums: a list of integers
+    @return: find a  majority number
+    """
+    def majorityNumber(self, nums):
+        # write your code here
+        if nums == None or len(nums) == 0:
+            return None
+        
+        if len(nums) == 1:
+            return nums[0]
+            
+        hashmap = {}
+        n = len(nums)
+        for ele in nums:
+            if ele not in hashmap:
+                hashmap[ele] = 1
+            else:
+                hashmap[ele] += 1
+                if hashmap[ele] > n/2:
+                    return ele
