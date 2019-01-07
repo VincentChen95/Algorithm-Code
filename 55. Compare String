@@ -1,0 +1,25 @@
+class Solution:
+    """
+    @param A: A string
+    @param B: A string
+    @return: if string A contains all of the characters in B return true else return false
+    """
+    def compareStrings(self, A, B):
+        # write your code here
+        if A == None or B == None:
+            return False
+        hashmap = {}
+        for i in A:
+            if i not in hashmap:
+                hashmap[i] = 1
+            else:
+                hashmap[i] += 1
+        
+        for i in B:
+            if i not in hashmap:
+                return False
+            else:
+                hashmap[i] -= 1
+                if hashmap[i] == 0:
+                    del hashmap[i]
+        return True
