@@ -1,0 +1,15 @@
+class Solution:
+    """
+    @param: s: A string
+    @return: A string
+    """
+    def reverseWords(self, s):
+        # write your code here
+        # Delete the space two sides
+        s_strip = s.strip()
+        # Split
+        s_split = s_strip.split()
+        # Reverse
+        s_rev = reversed(s_split)
+        # Join
+        return ' '.join(s_rev)
