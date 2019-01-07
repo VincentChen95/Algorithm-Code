@@ -1,0 +1,35 @@
+class Solution:
+    """
+    @param A: an integer sorted array
+    @param target: an integer to be inserted
+    @return: a list of length 2, [index1, index2]
+    """
+    def searchRange(self, A, target):
+        # write your code here
+        if A == None or len(A) == 0:
+            return [-1,-1]
+            
+        n = len(A)
+        start = 0
+        end = n -1 
+        while start + 1< end:
+            mid = start + int((end - start)/2)
+            if A[mid] > target:
+                end = mid 
+            else:
+                start = mid 
+        if A[start] == target:
+            index1 = start
+            while index1 > 0 and A[index1 -1] == A[index1]:
+                index1 -= 1
+        elif A[end] == target:
+            index1 = end
+        else:
+            return [-1,-1]
+        count = -1
+        for i in range(index1,n):
+            if A[i] == target:
+                count += 1
+            else:
+                break
+        return [index1,index1+count]
