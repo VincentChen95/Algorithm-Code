@@ -1,0 +1,23 @@
+class Solution:
+    """
+    @param A: An integers array.
+    @return: return any of peek positions.
+    """
+    
+    def __init__(self):
+        self.result = []
+    
+    def findPeak(self, A):
+        # write your code here
+        start = 0
+        end = len(A) - 1
+        self.helper(A,start,end)
+        return self.result
+        
+    def helper(self,array,start,end):
+        if end - start >= 2:
+            mid = start + int((end - start)/2)
+            if array[mid] > array[mid-1] and array[mid] > array[mid+1]:
+                self.result.append(mid)
+            self.helper(array,start,mid)
+            self.helper(array,mid,end)
