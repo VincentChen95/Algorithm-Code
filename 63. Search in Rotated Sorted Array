@@ -1,0 +1,35 @@
+class Solution:
+    """
+    @param A: an integer ratated sorted array and duplicates are allowed
+    @param target: An integer
+    @return: a boolean 
+    """
+    def search(self, A, target):
+        # write your code here
+        if A == None or len(A) == 0:
+            return False
+        
+        n = len(A)
+        start = 0
+        end = n -1 
+        
+        while start + 1< end :
+            mid = start + int((end - start)/2)
+            if A[mid] == target:
+                return True
+            if A[mid] > A[start]:
+                if A[start] <= target and A[mid] > target:
+                    end = mid
+                else:
+                    start = mid
+            elif A[mid] > A[start]:
+                if A[end] >= target and A[mid] < target:
+                    start = mid
+                else: 
+                    start = mid 
+            else:
+                # If there are n-1 duplicates, the runing time will be O(N)
+                start+=1
+        if A[start] == target or A[end] == target:
+            return True
+        return False
