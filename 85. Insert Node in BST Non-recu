@@ -1,0 +1,31 @@
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+
+class Solution:
+    """
+    @param: root: The root of the binary search tree.
+    @param: node: insert this node into the binary search tree
+    @return: The root of the new binary search tree.
+    """
+    def insertNode(self, root, node):
+        # write your code here
+        if root == None:
+            return node
+        curt = root
+        while curt != node:
+            if node.val > curt.val:
+                if curt.right == None:
+                    curt.right = node
+                curt = curt.right
+            else:
+                if curt.left == None:
+                    curt.left = node
+                curt = curt.left
+        return root
+            
