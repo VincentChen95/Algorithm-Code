@@ -1,0 +1,25 @@
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: The root of binary tree.
+    @return: True if the binary tree is BST, or false
+    """
+    def isValidBST(self, root):
+        # write your code here
+        return self.div_con(root,-sys.maxsize,sys.maxsize)
+        
+    def div_con(self,node ,min_,max_):
+        if node == None:
+            return True
+        if node.val >= max_ or node.val <= min_:
+            return False
+        return self.div_con(node.left,min_,node.val) and self.div_con(node.right,node.val,max_)
+            
+        
