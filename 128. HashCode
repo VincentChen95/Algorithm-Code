@@ -1,0 +1,16 @@
+class Solution:
+    """
+    @param key: A string you should hash
+    @param HASH_SIZE: An integer
+    @return: An integer
+    """
+    def hashCode(self, key, HASH_SIZE):
+        # write your code here
+        if key == None or len(key) == 0:
+            return None
+
+        asc_sum = 0
+        for i in key:
+            asc_sum = (asc_sum*33 + ord(i))%HASH_SIZE
+        return asc_sum
+            
