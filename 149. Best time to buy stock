@@ -1,0 +1,22 @@
+class Solution:
+    """
+    @param prices: Given an integer array
+    @return: Maximum profit
+    """
+    def maxProfit(self, prices):
+        # write your code here
+        if prices == None or len(prices) == 0:
+            return 0
+        
+        min_ = sys.maxsize
+        high = 0
+        profit = 0
+        
+        for i in prices:
+            if i - min_ > profit:
+                profit = i - min_ 
+            if i < min_:
+                min_ = i
+        return profit
+        
+        
