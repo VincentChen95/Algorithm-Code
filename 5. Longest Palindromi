@@ -6,17 +6,18 @@ class Solution:
         """
         if s == None or len(s) <= 1:
             return s
-
-        n = len(s)
-        
-        dp = [[None]*n]*n
+        result = ''
         max_len = 0
-        result = ''  
-        for j in range(n):
-            for i in range(j+1):
-                dp[i][j] = (s[i] == s[j] and (j-i<=2 or dp[i+1][j-1]==1))
+        n = len(s)
+        dp = [[None]*n]*n
+        
+        for i in range(n):
+            for j in range(i+1):
+                dp[i][j] = s[i] == s[j] and (i-j<=2 or dp[i-1][j+1])
                 if dp[i][j]:
-                    if j-i+1 > max_len:
-                        result = s[i:j+1]
-                        max_len = j - i+1
+                    if i - j +1 >max_len:
+                        max_len = i-j+1
+                        result = s[j:i+1]
         return result
+        
+        dp: time complexity O(N^2)
