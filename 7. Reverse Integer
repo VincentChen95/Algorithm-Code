@@ -1,0 +1,23 @@
+class Solution:
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        result = 0
+        max_value = 2**31
+        minus = 0
+        if x < 0:
+            minus = 1
+            x = -x
+            
+        while x != 0:
+            dig = x % 10
+            x = int(x/10)
+            if result > max_value/10 or (result == max_value/10 and pop >7):
+                return 0
+            result = result*10 + dig
+        if minus:
+            return -result
+        else:
+            return result
