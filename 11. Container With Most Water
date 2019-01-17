@@ -1,0 +1,25 @@
+class Solution:
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        if height == None or len(height) <= 1:
+            return 0  
+        
+        n = len(height)
+        start = 0
+        end = n-1
+        max_vol = 0
+        
+        while start < end:
+            width = end - start
+            if height[end] > height[start]:
+                temp_h = height[start]
+                start += 1
+            else:
+                temp_h = height[end]
+                end -= 1
+            temp_v = width*temp_h
+            max_vol = max(temp_v,max_vol)
+        return max_vol
