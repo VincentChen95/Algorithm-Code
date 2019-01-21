@@ -1,0 +1,25 @@
+class Solution:
+    def maximalSquare(self, matrix):
+        """
+        :type matrix: List[List[str]]
+        :rtype: int
+        """
+        if not matrix or len(matrix) == 0 or len(matrix[0]) == 0:
+            return 0
+        
+        row = len(matrix)
+        col = len(matrix[0])
+        
+        dp = [[0] * col for i in range(row)]
+        area = 0
+            
+        for i in range(row):
+            for j in range(col):
+                if i == 0 or j == 0:
+                    dp[i][j] = int(matrix[i][j])
+                else:
+                    if matrix[i][j] == '1':
+                        dp[i][j] = min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]) + 1
+                area = max(area,dp[i][j]**2)
+        return area
+    
