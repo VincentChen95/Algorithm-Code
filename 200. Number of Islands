@@ -1,0 +1,24 @@
+class Solution:
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        if not grid or len(grid) == 0 or len(grid[0]) == 0:
+            return 0
+        row = len(grid)
+        col = len(grid[0])
+        count = 0
+        for i in range(row):
+            for j in range(col):
+                if grid[i][j] == '1':
+                    self.mark(grid,i,j)
+                    count += 1
+        return count
+    
+    def mark(self,grid,row,col):
+        grid[row][col] = 'X'
+        m,n = len(grid[0]),len(grid)
+        for dirc in [[0,1],[0,-1],[1,0],[-1,0]]:
+            if 0<=(row+dirc[0])<n and 0<=(col+dirc[1])<m and grid[row+dirc[0]][col+dirc[1]]=='1':
+                self.mark(grid,row+dirc[0],col+dirc[1])
