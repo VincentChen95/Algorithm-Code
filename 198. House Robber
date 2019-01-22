@@ -1,0 +1,11 @@
+class Solution:
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        dp, maxi = [0]*(len(nums)+3),0
+        for i in range(len(nums)):
+            dp[i+3] = max(dp[i]+nums[i],dp[i+1]+nums[i])
+            maxi = max(dp[i+3],maxi)
+        return maxi
