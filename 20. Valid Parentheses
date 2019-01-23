@@ -1,0 +1,21 @@
+class Solution:
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        tosee = []
+        
+        for c in s:
+            if c == "(":
+                tosee.append(")")
+            elif c == "{":
+                tosee.append("}")
+            elif c == "[":
+                tosee.append("]")
+            elif tosee:
+                if c != tosee.pop(): 
+                    return False
+            else:
+                return False
+        return not tosee
