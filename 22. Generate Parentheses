@@ -1,0 +1,18 @@
+class Solution:
+    def __init__(self):
+        self.result = []
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        def generate(temp,left,right):
+            if left:
+                generate(temp+'(',left-1,right)
+            if right > left:
+                generate(temp + ')',left,right-1)
+            
+            if not right:
+                self.result.append(temp)
+        generate('',n,n)
+        return self.result
