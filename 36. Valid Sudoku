@@ -1,0 +1,23 @@
+class Solution:
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        row = [set() for i in range(9)]
+        col = [set() for i in range(9)]
+        box = [set() for i in range(9)]
+        
+        r = len(board)
+        c = len(board[0])
+        
+        for i in range(r):
+            for j in range(c):
+                temp = board[i][j]
+                if temp != '.':
+                    if temp in row[i] or temp in col[j] or temp in box[(i//3)*3 + j//3]:
+                        return False
+                row[i].add(temp)
+                col[j].add(temp)
+                box[(i//3)*3 + j//3].add(temp)
+        return True
