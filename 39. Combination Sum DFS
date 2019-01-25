@@ -1,0 +1,28 @@
+class Solution:
+    def __init__(self):
+        self.result = []
+    
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        if candidates == None or len(candidates) == 0:
+            return []
+        self.dfs([],0,candidates,target)
+        return self.result
+    
+    def dfs(self,temp,index,candidates,target):
+        if target == 0:
+            self.result.append(list(temp))
+            return
+        elif target < 0:
+            return
+        for i in range(index,len(candidates)):
+            self.dfs(temp + [candidates[i]],i,candidates,target - candidates[i])
+
+            
+            
+
+        
