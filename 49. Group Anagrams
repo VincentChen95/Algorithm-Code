@@ -1,0 +1,10 @@
+class Solution:
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        hashmap = collections.defaultdict(list)
+        for str_ in strs:
+        	hashmap[''.join(sorted(str_))].append(str_)
+        return list(hashmap.values())
