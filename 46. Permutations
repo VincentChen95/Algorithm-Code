@@ -1,0 +1,30 @@
+class Solution:
+    def __init__(self):
+        self.result = []
+        
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        if nums == None or len(nums) == 0:
+            return [[]]
+        se = set()
+        self.helper(nums,[],se)
+        return self.result
+    
+    def helper(self,nums,temp,se):
+        if len(temp) == len(nums):
+            self.result.append(list(temp))
+            return
+        
+        for i in nums:
+            if i not in se:
+                se.add(i)
+                temp.append(i)
+                self.helper(nums,temp,se)
+                se.remove(i)
+                temp.pop()
+                
+                
+                
