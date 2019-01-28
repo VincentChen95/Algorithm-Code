@@ -1,0 +1,18 @@
+class Solution:
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        if not nums or len(nums) == 0:
+            return True
+        maxnumstep = 0
+        n = len(nums)
+        for i in range(n):
+            if i > maxnumstep:
+                return False
+            curentstep = nums[i] + i
+            maxnumstep = curentstep if curentstep > maxnumstep else maxnumstep
+            if maxnumstep > n:
+                return True
+        return True
