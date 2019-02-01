@@ -1,0 +1,31 @@
+class Solution:
+    def exist(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        if not board:
+            return False
+        r, c = len(board), len(board[0])
+        visited = {}
+        for i in range(r):
+            for j in range(c):
+                if self.dfs(board, word, visited, i, j,0):
+                    return True
+        return False
+    
+    def dfs(self, board, word, visited, i, j,index):
+        if index ==  len(word):
+            return True
+        
+        if i < 0 or i == len(board) or j < 0 or j == len(board[0]) \
+        or visited.get((i, j))  or word[index] != board[i][j]:
+            return False
+        visited[(i, j)]  = True
+        res = self.dfs(board, word, visited, i+1, j,index + 1) or \
+              self.dfs(board, word, visited, i-1, j, index + 1) or \
+              self.dfs(board, word, visited, i, j-1,index + 1) or \
+              self.dfs(board, word, visited, i, j+1,index + 1)
+        visited[(i, j)]  = False
+        return res
