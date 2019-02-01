@@ -1,0 +1,19 @@
+class Solution:
+    def __init__(self):
+        self.result = []
+        
+    def combine(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        self.dfs(n,k,[],1)
+        return self.result
+    
+    def dfs(self,n, k, temp, start):
+        if len(temp) == k:
+            self.result.append(temp)
+        else:
+            for i in range(start, n+1):
+                self.dfs(n, k, temp + [i], i+1)
