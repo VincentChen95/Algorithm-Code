@@ -1,0 +1,28 @@
+class Solution:
+    def setZeroes(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: void Do not return anything, modify matrix in-place instead.
+        """
+        if not matrix or len(matrix[0]) == 0 or len(matrix) == 0:
+            return matrix
+        m = len(matrix)
+        n = len(matrix[0])
+        
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j] == 0:
+                    self.helper(i,j,matrix)
+        
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j]=='N':
+                    matrix[i][j] = 0 
+                        
+    def helper(self,row,col,matrix):
+        for i in range(len(matrix[0])):
+            if matrix[row][i] != 0:
+                matrix[row][i] = 'N' 
+        for i in range(len(matrix)):
+            if matrix[i][col] != 0:
+                matrix[i][col] = 'N' 
