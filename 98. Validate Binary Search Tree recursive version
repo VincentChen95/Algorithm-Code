@@ -1,0 +1,27 @@
+A recursive version of the in-order traversal solution
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        rec = []
+        self.flag = True
+        self.helper(rec,root)
+        return self.flag
+    
+    def helper(self,rec,root):
+        if root:
+            self.helper(rec,root.left)
+            if rec and root.val <= rec[-1]:
+                self.flag  = False
+                return
+            rec.append(root.val)
+            self.helper(rec,root.right)
