@@ -1,0 +1,19 @@
+class Solution:
+    def __init__(self):
+        self.result = [[]]
+    def subsetsWithDup(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        if nums == None:
+            return []
+        cur = []
+        for i in range(len(nums)):
+            if i > 0 and nums[i] == nums[i-1]:
+                cur = [ item + [nums[i]] for item in cur]
+            else:
+                cur = [ item + [nums[i]] for item in self.result]
+            self.result += cur
+        return self.result
