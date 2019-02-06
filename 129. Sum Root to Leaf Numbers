@@ -1,0 +1,28 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def __init__(self):
+        self.sum_root = 0
+    def sumNumbers(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if root == None:
+            return 0
+        temp = root.val
+        self.helper(root,temp)
+        return self.sum_root
+    
+    def helper(self,root,temp):
+        if root.left == None and root.right == None:
+            self.sum_root += temp
+        if root.left != None:
+            self.helper(root.left,temp*10 + root.left.val)
+        if root.right != None:
+            self.helper(root.right,temp*10 + root.right.val)
