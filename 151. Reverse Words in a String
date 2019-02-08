@@ -1,0 +1,9 @@
+class Solution(object):
+    def reverseWords(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        if not s or len(s) == 0:
+            return s
+        return ' '.join(s.strip().split()[::-1])
