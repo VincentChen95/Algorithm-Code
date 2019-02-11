@@ -1,0 +1,15 @@
+class Solution(object):
+    def wordPattern(self, pattern, str):
+        """
+        :type pattern: str
+        :type str: str
+        :rtype: bool
+        """       
+        slist = str.split()
+        # here we need to consider the len difference
+        # eg: pattern:"aaa" str:"aa aa aa aa"
+        if len(pattern) != len(slist):
+            return False
+        
+        # just like we do in isomorphic problem.
+        return (len(set(pattern)) == len(set(slist)) == len(set(zip(pattern, slist))))
