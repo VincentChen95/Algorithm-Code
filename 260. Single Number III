@@ -1,0 +1,14 @@
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        hashmap = {}
+        result = []
+        for i in nums:
+            hashmap[i] = hashmap.get(i,0) + 1
+        for k,v in hashmap.items():
+            if v == 1:
+                result.append(k)
+        return result
