@@ -1,0 +1,23 @@
+class Solution(object):
+
+    def __init__(self, nums):
+        """
+        :type nums: List[int]
+        """
+        self.index = {}
+        for i,num in enumerate(nums):
+            I = self.index.get(num)
+            if I is None:
+                self.index[num] = i
+            elif isinstance(I,int):
+                self.index[num] = [I,i]
+            else:
+                self.index[num].append(i)
+
+    def pick(self, target):
+        """
+        :type target: int
+        :rtype: int
+        """
+        I = self.index[target]
+        return I if isinstance(I, int) else random.choice(I)
