@@ -1,0 +1,11 @@
+class Solution(object):
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        #https://blog.csdn.net/ycf74514/article/details/48996383
+        r = x
+        while r*r > x:
+            r = (r + x/r) / 2
+        return r
