@@ -1,0 +1,14 @@
+class Solution(object):
+    def isIsomorphic(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        dic1,dic2 = {},{}
+        for s1,t1 in zip(s,t):
+            if dic1.get(s1,t1) != t1 or dic2.get(t1,s1)!=s1:
+                return False
+            dic1[s1] = t1
+            dic2[t1] = s1
+        return True
