@@ -1,0 +1,17 @@
+class Solution(object):
+    def rangeBitwiseAnd(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        i = 0
+        while m != n:
+            m >>= 1
+            n >>= 1
+            i += 1
+        return n << i
+        
+        
+        
+        首先向右移，直到找到找到前面相同的位，其他位置全是0，所以找到几位，向左移动几位补零就好
