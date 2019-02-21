@@ -1,0 +1,24 @@
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        # forward represent the numbers before node
+        forward = {i:set() for i in range(numCourses)}
+        backward = collections.defaultdict(set)
+        
+        for i ,j in prerequisites:
+            backward[j].add(i)
+            forward[i].add(j)
+        # pick up the node which does not have former node
+        queue = collections.deque([node for node in forward if len(forward[node]) == 0])
+        while queue:
+            node = queue.popleft()
+            for neigh in backward[node]:
+                forward[neigh].remove(node)
+                if len(forward[neigh]) == 0:
+                    queue.append(neigh)
+            forward.pop(node)
+        return not forward
