@@ -1,0 +1,19 @@
+import heapq
+class Solution(object):
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        nums = [-num for num in nums]
+        # heapify: O(N)
+        heapq.heapify(nums)
+        result = float('inf')
+        for _ in range(k):
+            # heappop: O(lgN)
+            result = heapq.heappop(nums)
+        return -result
+        
+        
+        for heapq, the heap is min heap. so we need to change the sign to realize max heap
