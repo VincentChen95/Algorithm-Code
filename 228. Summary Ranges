@@ -1,0 +1,19 @@
+class Solution(object):
+    def summaryRanges(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[str]
+        """
+        if nums == None or len(nums) == 0: return nums
+        start = 0
+        nex = 1
+        result = []
+        while nex < len(nums) or start == len(nums) - 1:
+            temp = ''
+            while nex < len(nums) and (nums[nex] - nums[start] == nex - start):
+                temp = str(nums[start]) + '->' + str(nums[nex])
+                nex += 1
+            result.append(temp) if len(temp) != 0 else result.append(str(nums[start]))
+            start = nex
+            nex = start + 1
+        return result
