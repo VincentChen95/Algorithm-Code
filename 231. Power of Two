@@ -1,0 +1,11 @@
+class Solution(object):
+    def isPowerOfTwo(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        return n > 0 and not n&(n-1)
+    
+    # for example, 16: 1 0 0 0 0 
+                   15: 0 1 1 1 1
+                16&15: 0 0 0 0 0 
