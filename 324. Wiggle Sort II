@@ -1,0 +1,11 @@
+class Solution(object):
+    def wiggleSort(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        arr = sorted(nums,reverse = True)
+        nums[1::2] = arr[:len(nums)//2]
+        nums[::2] = arr[len(nums)//2:]
+        
+        Time complexity: the built in sort method is python O(NlogN), space complexity: O(N)
