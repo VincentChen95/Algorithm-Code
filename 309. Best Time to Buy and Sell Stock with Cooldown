@@ -1,0 +1,20 @@
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        # 3 states: hold, not_hold, not_hold_cool
+        # 5 stages: hold -          do nothing - hold
+        #           hold -          sell -       not_hold
+        #           not_hold -      buy    -     hold
+        #           not_hold -      do nothing-  not_hold
+        #           not_hold_cool   do nothing   not_hold
+        not_hold = 0
+        not_hold_cool = float('-inf')
+        hold = float('-inf') #支付的钱，是负数
+        for p in prices:
+            hold = max(not_hold-p,hold)
+            not_hold = max(not_hold,not_hold_cool)
+            not_hold_cool = hold + p
+        return max(not_hold,not_hold_cool)
