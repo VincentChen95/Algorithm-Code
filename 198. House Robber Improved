@@ -1,0 +1,13 @@
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums: return 0 
+        if len(nums) <= 2: return max(nums)
+        prev = 0
+        cur = 0
+        for num in nums:
+            prev,cur = cur,max(prev+num,cur)
+        return cur
