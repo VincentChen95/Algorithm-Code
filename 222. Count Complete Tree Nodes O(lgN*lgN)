@@ -1,0 +1,37 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def countNodes(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root: return 0
+        left_h,right_h = self.left_hight(root.left),self.right_hight(root.right)
+        if left_h == right_h:
+            return 2**(left_h+1) - 1
+        else:
+            return 1 + self.countNodes(root.left) + self.countNodes(root.right)
+        
+    def left_hight(self,node):
+        height = 0
+        while node:
+            height += 1
+            node = node.left
+        return height
+    
+    def right_hight(self,node):
+        height = 0
+        while node:
+            height += 1
+            node = node.right
+        return height
+        
+        假设最坏情况下总有一颗子树不是完美二叉树，这样从根节点开始，检查左右子树深度需要2h时间（h为深度），
+        而对于根节点下面的一颗子树，检查深度需要2(h-1)时间，因此总体的时间复杂度为O(2h+2(h-1)+2(h-2)+...+2*1)=O(h^2)。
+        https://blog.csdn.net/jmspan/article/details/51056085
