@@ -1,0 +1,15 @@
+
+class Solution(object):
+    def nthSuperUglyNumber(self, n, primes):
+        """
+        :type n: int
+        :type primes: List[int]
+        :rtype: int
+        """
+        indexs, uglies = [0] * len(primes), [1]
+        while len(uglies) < n:
+            uglies.append(min([p * uglies[indexs[i]] for i, p in enumerate(primes)]))
+            for i, p in enumerate(primes):
+                if p * uglies[indexs[i]] == uglies[-1]:
+                    indexs[i] += 1
+        return uglies[-1]
