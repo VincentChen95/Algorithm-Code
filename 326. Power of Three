@@ -1,0 +1,9 @@
+class Solution(object):
+    def isPowerOfThree(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        powers = set([pow(3, i) for i in range(20)])
+        return True if n in powers else False
+        
