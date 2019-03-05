@@ -1,0 +1,30 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def oddEvenList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head or not head.next: return head
+        odd = head_2 = head.next
+        even = head
+        temp = odd.next
+        flag = 1
+        while temp:
+            if flag:
+                even.next = temp
+                even = even.next
+                flag = False
+            else:
+                odd.next = temp
+                odd = odd.next
+                flag = True
+            temp = temp.next
+        even.next = head_2
+        odd.next = None
+        return head
