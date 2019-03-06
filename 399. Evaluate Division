@@ -1,0 +1,40 @@
+class Solution(object):
+    def calcEquation(self, equations, values, queries):
+        """
+        :type equations: List[List[str]]
+        :type values: List[float]
+        :type queries: List[List[str]]
+        :rtype: List[float]
+        """
+        graph = collections.defaultdict(list)
+        graph = self.build_graph(equations,values,graph)
+        return [self.query(start,end,graph) for start,end in queries]
+    
+    def build_graph(self,equations,values,graph):
+        # former,latter: former/latter = ratio
+        def add_edges(former,latter,ratio):
+            graph[former] += [(latter,ratio)]
+        for i in range(len(values)):
+            add_edges(equations[i][0],equations[i][1],values[i])
+            add_edges(equations[i][1],equations[i][0],1./values[i])
+        return graph
+    
+    def query(self,start,end,graph):
+        if start not in graph or end not in graph:return -1
+        stack = [(start,1.0)]
+        visited = set()
+        while stack:
+            node,multiple = stack.pop(0)                
+            if node not in visited:
+                visited.add(node)
+                for neighbor,edge in graph[node]:
+                    if neighbor == end:
+                        return multiple*edge
+                    else:
+                        stack.append((neighbor,multiple*edge))
+        return -1
+        
+        
+
+        Given the number of variables N, and number of equations E,
+building the graph takes O(E), each query takes O(N), space for graph takes O(E)
