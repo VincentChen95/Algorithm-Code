@@ -1,0 +1,8 @@
+class Solution(object):
+    def isPowerOfFour(self, num):
+        """
+        :type num: int
+        :rtype: bool
+        """
+        set_ = set(4**i for i in range(16))
+        return True if num in set_ else False
