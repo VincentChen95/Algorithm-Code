@@ -1,0 +1,41 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+
+    def __init__(self, head):
+        """
+        @param head The linked list's head.
+        Note that the head is guaranteed to be not null, so it contains at least one node.
+        :type head: ListNode
+        """
+        self.head = head
+
+    def getRandom(self):
+        """
+        Returns a random node's value.
+        :rtype: int
+        """
+        result = self.head
+        node = self.head.next
+        index = 1
+        #蓄水池算法对于从未知大小的元素组中抽元素
+        #https://www.cnblogs.com/HappyAngel/archive/2011/02/07/1949762.html
+        while node:
+            # 对第k个数，它被选中的概率为（当时被抽中的概率）*（后面的数抽不中没取代他的概率）
+            # 当时被抽中的概率(1/k)
+            # 后面的数抽不中(k)/(k+1)*(k+1)/(k+2)*.....(n-1)/(n)
+            # 对于每个元素被抽中的概率都是(1/n)
+            if random.randint(0,index) == 0:
+                result = node
+            node = node.next
+            index += 1
+        return result.val
+        
+
+# Your Solution object will be instantiated and called as such:
+# obj = Solution(head)
+# param_1 = obj.getRandom()
