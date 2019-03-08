@@ -1,0 +1,22 @@
+class Solution(object):
+    def countNumbersWithUniqueDigits(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n == 0: return 1
+        if n == 1: return 10
+        dp = [0]*(n+1)
+        dp[0] = 1
+        dp[1] = 10
+        for i in range(2,n+1):
+            dp[i] = 9
+            k = 9
+            count = 1
+            while count < i:
+                dp[i] *= k
+                k -= 1
+                count += 1
+            dp[i] += dp[i-1]
+        return dp[-1]
+            类似于一个全排列问题
