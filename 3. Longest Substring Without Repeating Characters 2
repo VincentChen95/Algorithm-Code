@@ -1,0 +1,32 @@
+class Solution:
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if s == None: return 0
+        if len(s) <= 1: return len(s)
+        start = 0
+        end = 0
+        count = 1
+        visited = set()
+        while end < len(s) and start < len(s):
+            if s[end] not in visited:
+                visited.add(s[end])
+                end += 1
+                count = max(count,end-start)
+            else:
+                # 此时只移动start，end没改，所以会一直删除到 start移动到与s(end)重复元素的后一位
+                visited.remove(s[start])
+                start += 1
+        return count
+    
+    # space complexity: O(N)
+    # Time complexity: O(N)
+        
+        
+        
+        
+        
+
+        
