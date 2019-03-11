@@ -1,0 +1,36 @@
+class Solution(object):
+    def __init__(self):
+        self.result = []
+        
+    def fourSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        if not nums or len(nums) <= 3: return []
+        # O(NlogN)
+        self.helper(sorted(nums),[],4,target)
+        return self.result
+        
+    def helper(self,nums,temp,k,target):
+        if len(nums) < k or k < 2 or k*nums[-1] < target or k*nums[0] > target:
+            return 
+        if k == 2:
+            start = 0
+            end = len(nums) - 1
+            while start < end:
+                if nums[start] + nums[end] > target:
+                    end -= 1
+                elif nums[start] + nums[end] < target:
+                    start += 1
+                else:
+                    self.result.append(temp + [nums[start],nums[end]])
+                    start += 1
+                    while start < end and nums[start] == nums[start-1]:
+                        start += 1
+        else:
+            for i in range(len(nums) -k+1):
+                if i ==0 or nums[i] != nums[i-1]:
+                    self.helper(nums[i+1:],temp + [nums[i]],k-1,target - nums[i])
+        
