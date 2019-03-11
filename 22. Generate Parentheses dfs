@@ -1,0 +1,20 @@
+class Solution(object):
+    def __init__(self):
+        self.result = []
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        if n <= 0: return ''
+        self.dfs('',n,n)
+        return self.result
+    
+    def dfs(self,temp,left_remaining,right_remaining):
+        if left_remaining > right_remaining or left_remaining < 0 or right_remaining <0:
+            return 
+        if left_remaining == right_remaining and right_remaining == 0:
+            self.result.append(temp)
+            return
+        self.dfs(temp + '(',left_remaining-1,right_remaining)
+        self.dfs(temp + ')',left_remaining,right_remaining-1)
