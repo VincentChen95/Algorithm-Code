@@ -1,0 +1,26 @@
+class Solution(object):
+    def searchRange(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        if not nums or len(nums) == 0:return [-1,-1]
+        start = 0
+        end = len(nums) - 1
+        while start + 1 < end:
+            mid = start + (end -start)//2
+            if nums[mid] <= target:
+                start = mid
+            else:
+                end = mid
+        if target not in nums[start:end+1]:
+            return [-1,-1]
+        else:
+            point1= point2 = start if nums[start] == target else end
+            while point1 > 0 and nums[point1-1] == target:
+                point1 -= 1
+            while point2 < len(nums)-1 and nums[point2+1] == target:
+                point2 += 1
+            return [point1,point2]
+                
