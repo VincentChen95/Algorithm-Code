@@ -1,0 +1,20 @@
+class Solution(object):
+    def __init__(self):
+        self.result = []
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        if not nums or len(nums) == 0:return [[]]
+        nums.sort()
+        self.dfs(nums,0,[])
+        return self.result
+    
+    def dfs(self,nums,index,temp):
+        self.result.append(temp)
+        for i in range(index,len(nums)):
+            self.dfs(nums,i+1,temp+[nums[i]])
+        
+
+                
