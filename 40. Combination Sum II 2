@@ -1,0 +1,22 @@
+class Solution(object):
+    def combinationSum2(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        candidates.sort()
+        result = []
+        self.helper(candidates,target,[],0,result)
+        return result
+    def helper(self,candidates,target,temp,index,result):
+        if target < 0:
+            return 
+        if target == 0:
+            result.append(temp[:])
+            return
+        for i in range(index,len(candidates)):
+            #当idx=0,下面会过滤掉以相同数字开头的情况，我们已经拿了1去找，第二个1就不用了
+            if i > index and candidates[i] == candidates[i-1]:
+                continue
+            self.helper(candidates,target-candidates[i],temp+[candidates[i]],i+1,result)
