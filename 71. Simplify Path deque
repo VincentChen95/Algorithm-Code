@@ -1,0 +1,14 @@
+class Solution(object):
+    def simplifyPath(self, path):
+        """
+        :type path: str
+        :rtype: str
+        """
+        if not path:return ''
+        deque = collections.deque()
+        for item in path.split("/"):
+            if item not in [".", "..", ""]:
+                deque.append(item)
+            if item == ".." and deque:
+                deque.pop()
+        return "/" + "/".join(deque)
