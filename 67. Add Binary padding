@@ -1,0 +1,24 @@
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        if not a:return b
+        if not b:return a
+        result = ''
+        if len(a) - len(b) > 0:
+            b = str(0)*(len(a) - len(b)) + b
+        if len(a) - len(b) < 0:
+            a = str(0)*(len(b) - len(a)) + a
+        end = len(a) - 1
+        former = 0
+        while end >= 0:
+            sum_ = int(a[end]) + int(b[end]) + former
+            former,temp = divmod(sum_,2)
+            result += str(temp)
+            end -= 1
+        if former:
+            result += str(former)
+        return result[::-1]
