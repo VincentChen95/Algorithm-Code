@@ -1,0 +1,25 @@
+class Solution(object):
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        if not nums or len(nums) == 0:
+            return nums
+        left = 0
+        right = len(nums) - 1
+        zero_idx = 0
+        while left <= right:
+            if nums[left] == 0:
+                nums[left],nums[zero_idx] = nums[zero_idx],nums[left]
+                left += 1
+                zero_idx += 1
+            elif nums[left] == 2:
+                nums[left],nums[right]= nums[right],nums[left]
+                right -= 1
+            else:
+                left += 1
+                
+
+            
+            
