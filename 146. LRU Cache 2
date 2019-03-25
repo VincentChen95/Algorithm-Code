@@ -1,0 +1,40 @@
+class LRUCache(object):
+
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.deque = collections.deque([])
+        self.dic = {}
+        self.capacity = capacity
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key not in self.dic:
+            return -1
+        
+        self.deque.remove(key)
+        self.deque.append(key)
+        return self.dic[key]
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: void
+        """
+        if key in self.dic:
+            self.deque.remove(key)
+        elif len(self.dic) == self.capacity:
+                v = self.deque.popleft()
+                self.dic.pop(v)
+        self.deque.append(key)
+        self.dic[key] = value
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
