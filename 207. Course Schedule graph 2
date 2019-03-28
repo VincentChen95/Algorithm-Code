@@ -1,0 +1,37 @@
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        graph = [[] for i in range(numCourses)]
+        visited = [ 0 for i in range(numCourses)]
+        
+        # build graph
+        for pair in prerequisites:
+            start , next_ = pair
+            graph[start].append(next_)
+        # dfs
+        for i in range(numCourses):
+            if not self.dfs(graph,i,visited):
+                return False
+        return True
+    
+    def dfs(self,graph,start,visited):
+        # if visited, which means there is a circle
+        if visited[start] == -1:
+            return False
+        # if it is done visted, then do not visit again
+        if visited[start] == 1:
+            return True
+        # Mark as visited
+        visited[start] = -1
+        for j in graph[start]:
+            if not self.dfs(graph,j,visited):
+                return False
+        visited[start] = 1
+        return True
+
+            
+        
