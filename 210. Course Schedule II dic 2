@@ -1,0 +1,26 @@
+class Solution(object):
+    def findOrder(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: List[int]
+        """
+        forward = {i:set() for i in range(numCourses)}
+        backward = collections.defaultdict(set)
+        
+        for i,j in prerequisites:
+            forward[i].add(j)
+            backward[j].add(i)
+        
+        queue = collections.deque( node for node in forward if len(forward[node]) == 0)
+        result = []
+        while queue:
+            node = queue.popleft()
+            result.append(node)
+            for neign in backward[node]:
+                forward[neign].remove(node)
+                if len(forward[neign]) == 0:
+                    queue.append(neign)
+            forward.pop(node)
+        return result if not forward else []
+        
