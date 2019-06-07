@@ -1,0 +1,26 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def flatten(self, root):
+        '''      
+        1. flatten left subtree
+        2. find left subtree's tail
+        3. set root's left to None, root's right to root'left, tail's right to root.right
+        4. flatten the original right subtree
+        '''        
+        while root:
+            if root.left:
+                self.flatten(root.left)
+                node = root.left
+                while node.right:
+                    node = node.right
+                node2 = root.right
+                root.right = root.left
+                root.left = None
+                node.right = node2
+            root = root.right
