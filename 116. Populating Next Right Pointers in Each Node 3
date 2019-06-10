@@ -1,0 +1,27 @@
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val, left, right, next):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+class Solution(object):
+    def connect(self, root):
+        """
+        :type root: Node
+        :rtype: Node
+        """
+        if root is None:
+            return None
+        queue = collections.deque([root])
+        while queue:
+            iteration = len(queue)
+            for i in range(iteration):
+                node = queue.popleft()
+                node.next = queue[0] if i != iteration - 1 else None
+                if node.left is not None:
+                    queue.append(node.left)
+                    queue.append(node.right)
+        return root
