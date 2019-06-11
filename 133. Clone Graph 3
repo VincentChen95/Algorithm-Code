@@ -1,0 +1,22 @@
+class Solution(object):
+    def cloneGraph(self, node):
+        """
+        :type node: Node
+        :rtype: Node
+        """
+        if node is None:
+            return None
+        node_copy = Node(node.val, [])
+        stack = [node]
+        dic = {node:node_copy}
+        while stack:
+            node_ = stack.pop()
+            for neighbor in node_.neighbors:
+                if neighbor not in dic:
+                    new_node_copy = Node(neighbor.val, [])
+                    dic[neighbor] = new_node_copy
+                    dic[node_].neighbors.append(new_node_copy)
+                    stack.append(neighbor)
+                else:
+                    dic[node_].neighbors.append(dic[neighbor])
+        return node_copy
