@@ -1,0 +1,21 @@
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        res = 0 
+        for i in range(32):
+            count = 0
+            for num in nums:
+                # take the last digit
+                count += (num >> i) & 1 
+            res_ = count % 3
+            # must handle the negative case
+            if i == 31 and res_:
+                res -= 1 << 31
+            else:
+                # when i != 31, res need to add the new value, res also need to move one digit
+                res |= res_*(1 << i)
+        return res
+            
