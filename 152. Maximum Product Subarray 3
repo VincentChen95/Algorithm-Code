@@ -1,0 +1,16 @@
+class Solution(object):
+    def maxProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if nums is None or len(nums) == 0:
+            return 0
+        loc_max = loc_min = result = nums[0]
+        for num in nums[1:]:
+            temp = loc_min
+            loc_min = min(num, loc_min*num, loc_max*num)
+            loc_max = max(num, loc_max*num, temp*num)
+            result = max(result,loc_max)
+        return result
+                
