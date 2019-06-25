@@ -1,0 +1,47 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def sortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head is None or head.next is None:
+            return head
+        slow = head
+        fast = head.next
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        second = slow.next
+        slow.next = None
+        l = self.sortList(head)
+        r = self.sortList(second)
+        return self.merge(l,r)
+    
+    def merge(self,l,r):
+        dummy = ListNode(0)
+        dummy.next = l
+        cur = dummy
+        r_temp = r
+        while cur and cur.next and r_temp:
+            val = cur.next.val
+            if val < r_temp.val:
+                cur = cur.next
+                continue
+            else:
+                temp = cur.next
+                cur.next = r_temp
+                r_temp = r_temp.next
+                cur.next.next = temp
+                cur = cur.next
+        if r_temp:
+            cur.next = r_temp
+        return dummy.next
+        
+        时间复杂度是o(NlogN),拆解成树，每一行排序的时间复杂度（加起来）是n，一共有logN层。
+        因为是递归了logN,每层用了一个空间，所以空间复杂度是O(logN)。
