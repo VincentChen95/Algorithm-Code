@@ -1,0 +1,17 @@
+class Solution(object):
+    def largestNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: str
+        """
+        for i in range(len(nums), 0, -1):
+            temp = 0
+            for j in range(i):
+                if str(nums[j]) + str(nums[temp]) < str(nums[temp]) + str(nums[j]):
+                    temp = j
+            nums[temp], nums[i-1] = nums[i-1], nums[temp]
+        return str(int(''.join(map(str,nums))))
+        
+        选择排序（Select Sort） 是直观的排序，通过确定一个 Key 最大或最小值，再从带排序的的数中找出最大或最小的交换到对应位置。
+        再选择次之。双重循环时间复杂度为 O(n^2)算法描述：在一个长度为 N 的无序数组中，第一次遍历 n-1 个数找到最小的和第一个数交换。
+        第二次从下一个数开始遍历 n-2 个数，找到最小的数和第二个数交换。重复以上操作直到第 n-1 次遍历最小的数和第 n-1 个数交换，排序完成.
