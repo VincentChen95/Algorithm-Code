@@ -1,0 +1,17 @@
+nums = [5, 1, 3, 7, 4, 2, 10, 4, 9, 16, 12, 1, -1]
+
+
+def bubble_sort(nums):
+    for i in range(len(nums) - 1, 0, -1):
+        for j in range(i):
+            if nums[j + 1] < nums[j]:
+                nums[j], nums[j + 1] = nums[j + 1], nums[j]
+    print(nums)
+
+
+bubble_sort(nums)
+
+this method compare two neighbors.
+the sorted number will show up at the end each time
+the time complexity is O(N^2)
+it's staple.
