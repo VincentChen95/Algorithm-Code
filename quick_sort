@@ -1,0 +1,28 @@
+def quick_sort(nums):
+    helper(nums, 0, len(nums) - 1)
+    return nums
+
+
+def helper(nums, start, end):
+    if start > end:
+        return
+    pivot = nums[start]
+    i = start
+    j = end
+    while i < j:
+        while nums[j] >= pivot and j > i:
+            j -= 1
+        while nums[i] <= pivot and i < j:
+            i += 1
+        if i < j:
+            nums[i], nums[j] = nums[j], nums[i]
+    nums[start] = nums[i]
+    nums[i] = pivot
+    helper(nums, start, i - 1)
+    helper(nums, i + 1, end)
+
+
+num = quick_sort(nums)
+print(num)
+
+快排：每次选一个Pivot，将小于pivot的放左边，大于的放右边。左边这一段，又取一个pivot，再进行一次排序。右边同理。
