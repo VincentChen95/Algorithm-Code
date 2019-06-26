@@ -1,0 +1,29 @@
+class Solution(object):
+    def largestNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: str
+        https://www.youtube.com/watch?v=5nXrEBhBFpU
+        """
+        self.quicksort(nums,0,len(nums) - 1)
+        return str(int(''.join(map(str,nums))))
+    
+    def quicksort(self, nums,start,end):
+        if start >= end:
+            return
+        pos = self.partition(nums,start,end)
+        self.quicksort(nums,start,pos-1)
+        self.quicksort(nums,pos+1,end)
+        
+    def partition(self,nums,start,end):  
+        low = start
+        while start < end:
+            if str(nums[start]) + str(nums[end]) > str(nums[end]) + str(nums[start]):
+                #大的放左边
+                nums[low],nums[start] = nums[start], nums[low]
+                low += 1
+            start += 1
+        # [10,2]
+        nums[low], nums[end] = nums[end], nums[low]
+        # 以最小的点为基准点，再进入一次排序
+        return low
