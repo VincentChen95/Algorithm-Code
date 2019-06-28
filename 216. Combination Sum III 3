@@ -1,0 +1,22 @@
+class Solution(object):
+    def combinationSum3(self, k, n):
+        """
+        :type k: int
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        result = []
+        for i in range(1,10):
+            self.helper(result,[i],k-1,n-i)
+        return result
+    
+    def helper(self,result,temp,k,n):
+        if n < 0 or k < 0:
+            return 
+        if n == 0 and k == 0:
+            result.append(temp[:])
+            return
+        if n > 0 and k > 0:
+            for i in range(temp[-1]+1,10):
+                self.helper(result, temp + [i],k-1,n - i)
+        
