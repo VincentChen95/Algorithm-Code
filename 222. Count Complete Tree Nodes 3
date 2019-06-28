@@ -1,0 +1,49 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def countNodes(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if root is None:
+            return 0
+        left_hight = self.get_left_hight(root)
+        right_hight = self.get_right_hight(root)
+        if left_hight == right_hight:
+            return 2**left_hight - 1
+        
+        stack = [(root,1)]
+        count = 0
+        while stack:
+            node, h = stack.pop()
+            if h == left_hight:
+                count += 1
+            if node.right:
+                stack.append((node.right,h+1))
+            if node.left:
+                stack.append((node.left,h+1))
+        return 2**right_hight - 1 + count
+            
+    def get_left_hight(self,root):
+        h = 0
+        while root:
+            h += 1
+            root = root.left
+        return h
+
+    def get_right_hight(self,root):
+        h = 0
+        while root:
+            h += 1
+            root = root.right
+        return h
+        
+        time complexity: The best case O(logN).
+        
+        the worset case is O(N), the right corner node is missed. the code need to loop the whole tree.
