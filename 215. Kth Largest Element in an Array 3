@@ -1,0 +1,20 @@
+class Solution(object):
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        if k > len(nums):
+            return None
+        import heapq
+        heapq.heapify(nums)
+        k = len(nums) - k
+        result = 0
+        for i in range(k+1):
+            result = heapq.heappop(nums)
+        return result
+        
+        
+        # time complexity for heapify is O(N)
+        # heappop()是O(logn)时间的，除了要把第一个元素pop掉，还要继续维护堆，也就是再把一个最小的元素放在堆顶，这个操作是O(logn)的
