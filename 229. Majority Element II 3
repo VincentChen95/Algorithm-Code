@@ -1,0 +1,27 @@
+class Solution(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        if nums is None or len(nums) == 0:
+            return []
+        count_1, count_2, candidate_1, candidate_2 = 0, 0, 0, 1
+        for num in nums:
+            if num == candidate_1:
+                count_1 += 1
+            elif num == candidate_2:
+                count_2 += 1
+            elif count_1 == 0:
+                count_1 = 1
+                candidate_1 = num
+            elif count_2 == 0:
+                count_2 = 1
+                candidate_2 = num
+            else:
+                count_1 -= 1
+                count_2 -= 1
+        return [n for n in (candidate_1,candidate_2) if nums.count(n) > len(nums)//3]
+                
+                
+                The time complexity is O(N), space is O(1)
