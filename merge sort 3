@@ -1,0 +1,35 @@
+def merge_sort(nums):
+    if nums is None or len(nums) <= 1:
+        return nums
+    mid = len(nums) // 2
+    left = merge_sort(nums[:mid])
+    right = merge_sort(nums[mid:])
+    return merge(left, right)
+
+
+def merge(left, right):
+    nums = []
+    l = r = 0
+    while l < len(left) and r < len(right):
+        if left[l] <= right[r]:
+            nums.append(left[l])
+            l += 1
+        else:
+            nums.append(right[r])
+            r += 1
+    nums += left[l:]
+    nums += right[r:]
+    return nums
+    
+    
+可以说合并排序是比较复杂的排序，特别是对于不了解分治法基本思想的同学来说可能难以理解。
+总时间=分解时间+解决问题时间+合并时间。分解时间就是把一个待排序序列分解成两序列，时间为一常数，时间复杂度o(1).
+解决问题时间是两个递归式，把一个规模为n的问题分成两个规模分别为n/2的子问题，时间为2T(n/2).合并时间复杂度为o（n）。
+总时间T(n)=2T(n/2)+o(n).这个递归式可以用递归树来解，其解是o(nlogn).此外在最坏、最佳、平均情况下归并排序时间复杂度均为o(nlogn).
+从合并过程中可以看出合并排序稳定。 
+
+用递归树的方法解递归式T(n)=2T(n/2)+o(n):假设解决最后的子问题用时为常数c，则对于n个待排序记录来说整个问题的规模为cn。
+
+从这个递归树可以看出，第一层时间代价为cn，第二层时间代价为cn/2+cn/2=cn.....每一层代价都是cn，总共有logn+1层。
+所以总的时间代价为cn*(logn+1).时间复杂度是o(nlogn).
+空间复杂度是O(N)
