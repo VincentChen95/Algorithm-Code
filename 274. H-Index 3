@@ -1,0 +1,14 @@
+class Solution(object):
+    def hIndex(self, citations):
+        """
+        :type citations: List[int]
+        :rtype: int
+        """
+        if citations is None or len(citations) == 0:
+            return 0
+        citations = sorted(citations)
+        result = 0
+        for idx, ele in enumerate(citations[::-1]):
+            if ele >= idx + 1:
+                result = max(result, idx + 1)
+        return result
