@@ -1,0 +1,29 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def binaryTreePaths(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[str]
+        """
+        if root is None:
+            return root
+        stack = [(root, str(root.val))]
+        result = []
+        while stack:
+            node, string = stack.pop()
+            if node.right:
+                right_string = string + '->' + str(node.right.val)
+                stack.append((node.right, right_string))
+            if node.left:
+                left_string = string + '->' + str(node.left.val)
+                stack.append((node.left, left_string))
+            if not node.left and not node.right:
+                result.append(string)
+        return result
+                
