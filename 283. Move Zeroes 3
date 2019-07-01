@@ -1,0 +1,19 @@
+class Solution(object):
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        if nums is None or len(nums) <= 1:
+            return nums
+        left = 0
+        while left < len(nums) - 1:
+            if nums[left] == 0:
+                right = left + 1
+                while right < len(nums) - 1 and nums[right] == 0:
+                    right += 1
+                nums[left], nums[right] = nums[right], nums[left]
+            left += 1
+            
+            similar to selection sort, if nums[left] is 0, we select the first non zero number to exchange.
+            However, it is slower. The time complexity is O(N**2)
