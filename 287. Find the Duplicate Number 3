@@ -1,0 +1,24 @@
+class Solution(object):
+    def findDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if nums is None or len(nums) <= 1:
+            return None
+        slow = fast = finder = 0
+        while True:
+            slow = nums[slow]
+            # jump a extra step
+            fast = nums[nums[fast]]
+            # jump into the same index
+            if slow == fast:
+                # we can only know the same index came from the same value
+                while finder != slow:
+                    finder = nums[finder]
+                    slow = nums[slow]
+                return slow
+                
+            
+            
+        
