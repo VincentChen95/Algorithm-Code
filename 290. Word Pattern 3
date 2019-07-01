@@ -1,0 +1,22 @@
+class Solution(object):
+    def wordPattern(self, pattern, str):
+        """
+        :type pattern: str
+        :type str: str
+        :rtype: bool
+        """
+        str_split = str.split(' ')
+        if len(pattern) != len(str_split):
+            return False
+        visited = set()
+        dic = {}
+        for idx, ele in enumerate(pattern):
+            if ele not in dic:
+                if str_split[idx] in visited:
+                    return False
+                dic[ele] = str_split[idx]
+                visited.add(str_split[idx])
+            else:
+                if dic[ele] != str_split[idx]:
+                    return False
+        return True
