@@ -1,0 +1,21 @@
+class Solution(object):
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        if nums is None or len(nums) <= 1:
+            return nums
+        left = 0
+        right = 1
+        while right < len(nums) and left < len(nums):
+            if nums[left] == 0 and nums[right] != 0:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right += 1
+            elif nums[left] == 0 and nums[right] == 0:
+                right += 1
+            else:
+                left += 1
+                right += 1
+                
