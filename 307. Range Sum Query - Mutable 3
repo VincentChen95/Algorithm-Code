@@ -1,0 +1,63 @@
+class NumArray(object):
+
+    def __init__(self, nums):
+        """
+        :type nums: List[int]
+        """
+        if nums is None or len(nums) == 0:
+            return None
+        self.size = len(nums)
+        self.tree = [0]*self.size
+        self.build_tree(nums)
+
+    def update(self, i, val):
+        """
+        :type i: int
+        :type val: int
+        :rtype: None
+        """
+        i += self.size
+        self.tree[i] = val
+        while i > 0:
+            left_sub_tree_idx = i - 1 if i % 2 == 1 else i
+            right_sub_tree_idx = i if i % 2 == 1 else i + 1
+            self.tree[i//2] = self.tree[left_sub_tree_idx] + self.tree[right_sub_tree_idx]
+            i = int(i/2)
+            
+
+    def sumRange(self, i, j):
+        """
+        :type i: int
+        :type j: int
+        :rtype: int
+        """
+        i += self.size
+        j += self.size
+        result = 0
+        while i <= j:
+            # i is odd, special case
+            if i % 2 == 1:
+                result += self.tree[i]
+                i += 1
+            if j % 2 == 0:
+                result += self.tree[j]
+                j -= 1
+            i = int(i/2)
+            j = int(j/2)
+        return result
+            
+    def build_tree(self, nums):
+        self.tree[self.size:] = nums[:]
+        for i in range(self.size-1, -1, -1):
+            self.tree[i] = self.tree[i*2] + self.tree[i*2+1]
+        
+
+space complexity: O(N)
+time complexity: sumRange和update最多遍历次数均为O(logN)
+
+https://www.youtube.com/watch?v=S0Bf9jpgHmQ
+
+# Your NumArray object will be instantiated and called as such:
+# obj = NumArray(nums)
+# obj.update(i,val)
+# param_2 = obj.sumRange(i,j)
