@@ -1,0 +1,40 @@
+class Solution(object):
+    def lengthOfLIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if nums is None or len(nums) <= 0:
+            return 0
+        dp = [nums[0]]
+        for i in range(1, len(nums)):
+            self.binary_search(dp, nums[i])
+        return len(dp)
+
+    def binary_search(self, dp, target):
+        start = 0
+        end = len(dp) - 1
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if dp[mid] < target:
+                start = mid
+            else:
+                end = mid
+        if target > max(dp[start], dp[end]):
+            dp.append(target)
+        elif target <= min(dp[start], dp[end]):
+            dp[start] = target
+        else:
+            dp[end] = target
+        
+        使用一个二分查找的方式，找到递增子数组中大于等于当前值的第一个数的位置；
+如果找到，则利用当前值替换；否则将当前值加入到递增子数组中，表明该值比子数组的值都大，可能输入子数组。
+例子：nums = [5,6,7,1,2,8,3,4,0,5,9]： 
+遍历到 7: res = [5,6,7]；
+遍历到 2: res = [1,2,7];
+遍历到 8: res = [1,2,7,8];
+遍历到 3: res = [1,2,3,8];
+遍历到 4: res = [1,2,3,4];
+剩下三个元素 : res = [0,2,3,4,5,9];
+最后我们就可以得到最长递增子序列的长度，但是这里要注意得到的子序列不是真正的子序列，然而其长度是正确的。
+该算法无法得到最长递增子序列，仅计算长度。
