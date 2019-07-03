@@ -1,0 +1,18 @@
+class Solution(object):
+    def coinChange(self, coins, amount):
+        """
+        :type coins: List[int]
+        :type amount: int
+        :rtype: int
+        """
+        dp = [amount + 1]*(amount + 1)
+        dp[0] = 0
+        for i in range(amount + 1):
+            for j in coins:
+                if i - j >= 0:
+                    dp[i] = min(dp[i - j] + 1, dp[i])
+        return dp[-1] if dp[-1] < amount + 1 else -1
+        # time complexity is O(amount*len(coins))
+        # space complexity is O(amount)
+        
+        
