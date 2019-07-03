@@ -1,0 +1,22 @@
+class Solution(object):
+    def maxProduct(self, words):
+        """
+        :type words: List[str]
+        :rtype: int
+        其实因为全部都是小写的字母，用int 就可以存储每一位的信息。这就是位运算
+        elements[i] |= 1 << (words[i][j] – ‘a’);   //把words[i][j] 在26字母中的出现的次序变为1
+        elements[i] & elements[j]    // 判断是否有交集只需要两个数 按位 与 （AND）运算即可
+        """
+        n = len(words)
+        elements = [0] * n
+        for idx, word in enumerate(words):
+            for w in word:
+                # | is 'or'
+                # value = (ord(c) - 97), means move bit 1 to the left value unit
+                elements[idx] |= 1 << (ord(w) - 97)
+        result = 0
+        for i in range(n - 1):
+            for j in range(i + 1, n):
+                if not (elements[i] & elements[j]):
+                    result = max(result, len(words[i])*len(words[j]))
+        return result
