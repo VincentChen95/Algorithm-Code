@@ -1,0 +1,26 @@
+class Solution(object):
+    def findMinHeightTrees(self, n, edges):
+        """
+        :type n: int
+        :type edges: List[List[int]]
+        :rtype: List[int]
+        """
+        if n == 1:
+            return [0]
+        
+        dic = collections.defaultdict(set)
+        for u, v in edges:
+            dic[u].add(v)
+            dic[v].add(u)
+            
+        queue = [i for i in dic if len(dic[i]) == 1]
+        while n > 2:
+            len_ = len(queue)
+            n -= len_
+            for i in range(len_):
+                node = queue.pop(0)
+                for son in dic[node]:
+                    dic[son].remove(node)
+                    if len(dic[son]) == 1:
+                        queue.append(son)        
+        return queue
