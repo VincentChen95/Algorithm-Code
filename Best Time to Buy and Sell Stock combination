@@ -1,0 +1,71 @@
+121. Best Time to Buy and Sell Stock
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if prices is None or len(prices) <= 1:
+            return 0
+        result = 0
+        min_value = prices[0]
+        for price in prices[1:]:
+            result = max(result, price - min_value)
+            min_value = min(min_value, price)
+        return result
+        
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        result = 0
+        for i in range(1, len(prices)):
+            if prices[i] - prices[i - 1] > 0:
+                result += prices[i] - prices[i - 1]
+        return result
+        为什么可以直接加？ 如果有组合【7， 1， 5， 3， 6， 4】，在day 2买，day 5买，结果相当于 5 - 1 + 6 - 5。
+        
+        
+ class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        first_max_profit = second_max_profit = 0
+        first_lowest_buy = second_lowest_buy = float('inf')
+        for i in prices:
+            second_max_profit = max(second_max_profit, i - second_lowest_buy)
+            second_lowest_buy = min(second_lowest_buy, i - first_max_profit)
+            # 相当于第一次赚的钱减掉现在的付出，得到的盈余
+            first_max_profit = max(first_max_profit, i - first_lowest_buy)
+            first_lowest_buy = min(first_lowest_buy, i)
+        return second_max_profit
+        
+        要拿第一次的收入减掉第二次的买入
+        
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        # 3 states: hold, not_hold, not_hold_cool
+        # 5 stages: hold -          do nothing - hold
+        #           hold -          sell -       not_hold_cool
+        #           not_hold -      buy    -     hold
+        #           not_hold -      do nothing-  not_hold
+        #           not_hold_cool   do nothing   not_hold
+        # not_hold 期待等到最高价，hold是买的价格，期待是最小的
+        not_hold = 0
+        not_hold_cool = float('-inf')
+        hold = float('-inf') #支付的钱，是负数
+        for p in prices:
+            hold = max(not_hold-p,hold)
+            not_hold = max(not_hold,not_hold_cool)
+            not_hold_cool = hold + p
+        return max(not_hold,not_hold_cool)
+
+        
