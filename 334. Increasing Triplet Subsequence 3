@@ -1,0 +1,17 @@
+class Solution(object):
+    def increasingTriplet(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        lowest = second_lowest = float('inf')
+        for idx, ele in enumerate(nums):
+            lowest = min(lowest, ele)
+            if ele > lowest:
+                second_lowest = min(second_lowest, ele)
+            if idx >= 2 and ele > max(lowest, second_lowest):
+                    return True
+        return False
+            
+                
+        
