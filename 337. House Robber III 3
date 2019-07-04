@@ -1,0 +1,29 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def rob(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        return self.helper(root)[0]
+        
+    def helper(self, root):
+        if root is None:
+            return 0, 0
+        # 抢以左节点为根节点的树，不抢左节点的同时抢其以下的点
+        rob_left, not_rob_root_left = self.helper(root.left)
+        rob_right, not_rob_root_right = self.helper(root.right)
+        return max(rob_left + rob_right, not_rob_root_left + not_rob_root_right + root.val), rob_left + rob_right
+    
+    
+        # 题意：给定一棵二叉树，求能获取的权值最大和（相邻的不能同时取）
+        # 思路: 树形dp
+        # 显然有：
+        # rob_root = max(rob_L + rob_R , no_rob_L + no_nob_R + root.val)
+        # no_rob_root = rob_L + rob_R
