@@ -1,0 +1,35 @@
+class Solution(object):
+    def countBits(self, num):
+        """
+        :type num: int
+        :rtype: List[int]
+        """
+        dp = [0]*(num + 1)
+        offset = 1
+        for i in range(1, num + 1):
+            if offset*2 == i:
+                offset = i
+            dp[i] = dp[i - offset] + 1
+        return dp
+        
+        每一个 2^n的区间内存在一定规律
+        0000    0
+        -------------
+           0001    1
+        -------------
+           0010    1
+           0011    2
+        -------------
+           0100    1
+           0101    2
+           0110    2
+           0111    3
+        -------------
+           1000    1
+           1001    2
+          1010    2
+          1011    3
+          1100    2
+          1101    3
+          1110    3
+          1111    4
