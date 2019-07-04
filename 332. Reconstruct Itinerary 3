@@ -1,0 +1,30 @@
+class Solution(object):
+    def findItinerary(self, tickets):
+        """
+        :type tickets: List[List[str]]
+        :rtype: List[str]
+        """
+        graph = collections.defaultdict(list)
+        for start, end in tickets:
+            graph[start].append(end)
+        # VlogV
+        for key in graph:
+            # from big to small
+            graph[key].sort(reverse=True)
+        result = []
+        # O(V)
+        self.dfs(result, graph, 'JFK')
+        return result[::-1]
+        
+    def dfs(self, result, graph, target):
+        while graph[target]:
+            next_stop = graph[target].pop()
+            self.dfs(result, graph, next_stop)
+        result.append(target)
+            
+    https://blog.csdn.net/fuxuemingzhu/article/details/83551204     
+                
+                
+        
+        
+        
