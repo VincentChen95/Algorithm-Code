@@ -1,0 +1,33 @@
+class Solution(object):
+    def kthSmallest(self, matrix, k):
+        """
+        :type matrix: List[List[int]]
+        :type k: int
+        :rtype: int
+        """
+        min_value = matrix[0][0]
+        max_value = matrix[-1][-1]
+        while min_value < max_value:
+            mid = min_value + (max_value - min_value)//2
+            count = self.binary_search(matrix, mid)
+            if k <= count:
+                max_value = mid
+            else:
+                min_value = mid + 1
+        return min_value
+    
+    def binary_search(self, matrix, mid):
+        row = len(matrix)
+        i = row - 1
+        j = count = 0
+        # 计算出多少个数在中值左边，多少个数在中数右边
+        while i >= 0 and j < row:
+            # 小于或者等于，全部算在左边
+            if matrix[i][j] <= mid:
+                count += i + 1
+                j += 1
+            else:
+                i -= 1
+        return count
+                
+            time complexity: O(log(max-min)*N)
