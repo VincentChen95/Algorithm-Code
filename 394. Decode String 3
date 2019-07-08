@@ -1,0 +1,25 @@
+class Solution(object):
+    def decodeString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        if s is None or len(s) == 0:
+            return s
+        stack = []
+        for i in s:
+            if i == '[':
+                stack.append('')
+            elif i == ']':
+                str_ = stack.pop()
+                times = stack.pop()
+                if len(stack) == 0:
+                    stack.append(int(times)*str_) 
+                else:
+                    stack[-1] += int(times)*str_ 
+            else:
+                if len(stack) == 0 or stack[-1].isdigit() != i.isdigit():
+                    stack.append(i)
+                else:
+                    stack[-1] += i
+        return stack[-1]
