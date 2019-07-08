@@ -1,0 +1,25 @@
+class Solution(object):
+    def lexicalOrder(self, n):
+        """
+        :type n: int
+        :rtype: List[int]
+        """
+        cur = 1
+        result = []
+        for i in range(n):
+            result.append(cur)
+            if cur*10 <= n:
+                cur *= 10
+            else:
+                if cur >= n:
+                    cur //= 10
+                cur += 1
+                # 进位，比如109到110
+                while cur % 10 == 0:
+                    cur //= 10
+        return result
+    
+        # 如果curr乘以10小于等于n，那么下个数字应该是curr末尾补0；
+        # 如果curr已经到达了n，那么说明各位数字已经到头了，应该变化十位数字了，所以除以10，再加一。
+        # 这时可能会出现恰好进位的情况，而字典序可能是从末尾没有0的数字开始的，所以要把末尾的0去掉。
+        # https://blog.csdn.net/fuxuemingzhu/article/details/81776094
