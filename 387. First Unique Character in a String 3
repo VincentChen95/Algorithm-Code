@@ -1,0 +1,11 @@
+class Solution(object):
+    def firstUniqChar(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        dic = {}
+        for idx, ele in enumerate(s):
+            dic[ele] = -1 if ele in dic else idx
+        result = [idx for _, idx in dic.items() if idx != -1]
+        return min(result) if len(result) else -1
