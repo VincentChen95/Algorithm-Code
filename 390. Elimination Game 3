@@ -1,0 +1,22 @@
+class Solution(object):
+    def lastRemaining(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        return self.left_to_right(n)
+        
+    def left_to_right(self, n):
+        if n in [1, 2]:
+            return n
+        return 2*self.right_to_left(n/2) if n % 2 == 0 else 2*self.right_to_left((n - 1)/2)
+        
+    def right_to_left(self, n):
+        if n in [1,2]:
+            return 1
+        return 2*self.left_to_right((n - 1)/2) if n % 2 == 1 else 2*self.left_to_right(n/2) - 1
+            
+    # https://blog.csdn.net/fuxuemingzhu/article/details/79526571
+    
+    
+    Time complexity is O(logN)
