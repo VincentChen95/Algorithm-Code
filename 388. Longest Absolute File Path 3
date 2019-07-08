@@ -1,0 +1,21 @@
+class Solution(object):
+    def lengthLongestPath(self, input):
+        """
+        :type input: str
+        :rtype: int
+        """  
+        dic = {}
+        longest = 0
+        fileList=input.split("\n")
+        for i in fileList:
+            # the number of '\t' is the number of layer
+            key = i.count('\t')
+            length = len(i.replace('\t', ''))
+            if '.' in i:
+                # it's a file
+                longest = max(longest, dic.get(key - 1, 0) + length + key)
+            else:
+                # it's a folder
+                dic[key] = dic[key - 1] + length if key > 0 else length
+        return longest
+                
