@@ -1,0 +1,14 @@
+class Solution(object):
+    def integerReplacement(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n == 2 or n == 1:
+            return n - 1
+        elif n % 2 == 1:
+            return min(self.integerReplacement(n + 1) + 1, self.integerReplacement(n - 1) + 1)
+        else:
+            return self.integerReplacement(n/2) + 1
+        
+            time complexity is O(N)
