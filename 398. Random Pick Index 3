@@ -1,0 +1,29 @@
+class Solution(object):
+
+    def __init__(self, nums):
+        """
+        :type nums: List[int]
+        """
+        self.nums = nums
+
+    def pick(self, target):
+        """
+        :type target: int
+        :rtype: int
+        """
+        index_list = [idx for idx, num in enumerate(self.nums) if num == target]
+        if len(index_list) == 0:
+            return None
+        else:
+            result = index_list[0]
+            for i in range(1, len(index_list)):
+                if random.randint(0, i) == 0:
+                    result = index_list[i]
+            return result
+            
+            
+
+蓄水池抽样，time comlexity for pick is O(N), space comlexity is O(N)
+# Your Solution object will be instantiated and called as such:
+# obj = Solution(nums)
+# param_1 = obj.pick(target)
