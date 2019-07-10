@@ -1,0 +1,19 @@
+class Solution(object):
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        if numRows == 1:
+            return s
+        result = ['' for _ in range(numRows)]
+        count = 0
+        for i in s:
+            result[count] += i
+            if count == 0:
+                step = 1
+            if count == numRows -1:
+                step = -1
+            count += step
+        return ''.join(result)
