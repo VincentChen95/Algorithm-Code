@@ -1,0 +1,21 @@
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        result = ''
+        for i in range(len(s)):
+            # odd case, aba
+            str_1 = self.helper(s, i, i)
+            # even case, abba
+            str_2 = self.helper(s, i, i + 1)
+            if len(str_1) > len(result):
+                result = str_1
+            if len(str_2) > len(result):
+                result = str_2
+        return result
+    
+    def helper(self, s, l, r):
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            l -= 1
+            r += 1
+        return s[l + 1: r]
+        
+        the worst case is O(N^2), when the string is 'aaaaaaaaaaaaaaaaaaaaaa'
