@@ -1,0 +1,37 @@
+class Solution(object):
+    def fourSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        result = []
+        for i in range(len(nums) - 3):
+            if i == 0 or nums[i] != nums[i - 1]:
+                self.helper(nums[i + 1: ], result, nums[i], target)
+        return result
+        
+    def helper(self, nums, result, temp, target):
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+            if nums[i]*3 > target - temp or nums[-1]*3 < target - temp:
+                continue
+            start = i + 1
+            end = len(nums) - 1
+            while start < end:
+                if nums[start] + nums[end] + temp + nums[i] == target:
+                    result.append([temp, nums[i], nums[start], nums[end]])
+                    while start < end and nums[start + 1] == nums[start]:
+                        start += 1
+                    while start < end and nums[end - 1] == nums[end]:
+                        end -= 1
+                    start += 1
+                    end -= 1
+                elif nums[start] + nums[end] + temp + nums[i] > target:
+                    end -= 1
+                else:
+                    start += 1
+                    
+            
