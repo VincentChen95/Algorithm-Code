@@ -1,0 +1,21 @@
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        result = []
+        self.helper(result, '', n, n)
+        return result
+        
+    def helper(self, result, temp, left, right):
+        if left < 0 or right < 0:
+            return
+        # 下面的递归会产生两个()()()，下面这个判别式会把其中一个删除掉
+        if left > right:
+            return
+        if left == 0 and right == 0:
+            result.append(temp)
+            return
+        self.helper(result, temp + ')', left, right - 1)
+        self.helper(result, temp + '(', left - 1, right)
