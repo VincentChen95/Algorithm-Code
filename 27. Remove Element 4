@@ -1,0 +1,15 @@
+class Solution(object):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        i = j = 0
+        while j < len(nums):
+            while i < len(nums) and nums[i] != val:
+                i += 1
+            if j > i and nums[j] != val:
+                nums[i], nums[j] = nums[j], nums[i]
+            j += 1
+        return i if i == len(nums) or nums[i] == val else i + 1
