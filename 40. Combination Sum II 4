@@ -1,0 +1,25 @@
+class Solution(object):
+    def combinationSum2(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        # O(NlogN)
+        candidates.sort()
+        result = []
+        self.helper(result, candidates, [], target, 0)
+        return result
+    
+    def helper(self, result, candidates, temp, target, idx):
+        if target < 0:
+            return 
+        if target == 0:
+            result.append(temp[:])
+            return 
+        for i in range(idx, len(candidates)):
+            # 1, 2, 2, 2, 4 case. 1, first 2 will enter later process, 1 second 2 will not
+            if i > idx and candidates[i] == candidates[i - 1]:
+                continue
+            ele = candidates[i]
+            self.helper(result, candidates, temp + [ele], target - ele, i + 1)
