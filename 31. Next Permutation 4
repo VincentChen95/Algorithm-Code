@@ -1,0 +1,28 @@
+class Solution(object):
+    def nextPermutation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        idx = -1
+        # find the first element which is less than latter one
+        for i in range(n - 2, -1, -1):
+            if nums[i] < nums[i + 1]:
+                idx = i
+                break
+        if idx == -1:
+            return nums.reverse()
+        # reverse others afther this element
+        left = idx + 1
+        right = n - 1
+        while left < right:
+            nums[left], nums[right] = nums[right], nums[left]
+            left += 1
+            right -= 1
+        # switch this element with the first one which is bigger than this one
+        for i in range(idx + 1, n):
+            if nums[i] > nums[idx]:
+                nums[i], nums[idx] = nums[idx], nums[i]
+                break
+        return nums
