@@ -1,0 +1,21 @@
+class Solution(object):
+    def spiralOrder(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[int]
+        """
+        result = []
+        while matrix:
+            result.extend(matrix.pop(0))
+            for i in matrix:
+                if i:
+                    result.append(i.pop())
+            if matrix:
+                result.extend(matrix.pop()[::-1])
+            temp = []
+            for i in matrix:
+                if i:
+                    temp.append(i.pop(0))
+            result.extend(temp[::-1])
+        return result
+            
