@@ -1,0 +1,19 @@
+class Solution(object):
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        result = []
+        nums.sort()
+        self.helper(nums, result, [])
+        return result
+    
+    def helper(self, nums, result, temp):
+        if len(nums) == 0:
+            result.append(temp[:])
+            return
+        for idx, ele in enumerate(nums):
+            if idx == 0 or ele != nums[idx - 1]:
+                self.helper(nums[ : idx] + nums[idx + 1:], result, temp + [ele])
+        
