@@ -1,0 +1,16 @@
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        result = []
+        self.helper(result, nums, [])
+        return result
+    
+    def helper(self, result, nums, temp):
+        if len(nums) == 0:
+            result.append(temp[:])
+            return
+        for i in range(len(nums)):
+            self.helper(result, nums[:i] + nums[i + 1:], temp + [nums[i]])
