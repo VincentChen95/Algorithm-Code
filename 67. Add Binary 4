@@ -1,0 +1,19 @@
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        result = ''
+        prev = i = j = 0
+        while i < len(a) or j < len(b) or prev != 0:
+            cur_a = int(a[len(a) - i - 1]) if i < len(a) else 0
+            cur_b = int(b[len(b) - j - 1]) if j < len(b) else 0
+            cur_sum = cur_a + cur_b + prev
+            prev = 1 if cur_sum > 1 else 0
+            cur_sum = cur_sum % 2
+            result = str(cur_sum) + result
+            i += 1
+            j += 1
+        return result
