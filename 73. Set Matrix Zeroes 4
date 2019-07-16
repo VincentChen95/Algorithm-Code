@@ -1,0 +1,24 @@
+class Solution(object):
+    def setZeroes(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        row_set = set()
+        col_set = set()
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if matrix[i][j] == 0:
+                    row_set.add(i)
+                    col_set.add(j)
+        self.change(matrix, row_set, col_set)
+                    
+    def change(self, matrix, row_set, col_set):
+        for a in range(len(matrix)):
+            for b in col_set:
+                if matrix[a][b] != 0:
+                    matrix[a][b] = 0
+        for a in range(len(matrix[0])):
+            for b in row_set:
+                if matrix[b][a] != 0:
+                    matrix[b][a] = 0
