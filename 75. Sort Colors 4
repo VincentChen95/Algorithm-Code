@@ -1,0 +1,23 @@
+class Solution(object):
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        start = self.sort(nums, 0, 0)
+        self.sort(nums, start, 1)
+        
+    def sort(self, nums, start, target):
+        if start >= len(nums):
+            return 
+        end = len(nums) - 1
+        while start < end:
+            while start < end and nums[start] == target:
+                start += 1
+            while end > start and nums[end] != target:
+                end -= 1
+            if nums[start] != target and nums[end] == target:
+                nums[start], nums[end] = nums[end], nums[start]
+                start += 1
+                end -= 1
+        return start if nums[start] != target else start + 1
