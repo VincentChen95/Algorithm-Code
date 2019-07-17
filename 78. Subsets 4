@@ -1,0 +1,18 @@
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        result = []
+        self.helper(nums, result, 0, [])
+        return result
+    
+    def helper(self, nums, result, idx, temp):
+        result.append(temp)
+        for i in range(idx, len(nums)):
+            self.helper(nums, result, i + 1, temp + [nums[i]])
+            
+            
+            由前面的已经生成的往后面加
+            time complexity is o(N^2)，因为第一个数要生成N次，第二个数是N-1次，直到最后。等差数列求和
