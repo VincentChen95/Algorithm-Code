@@ -1,0 +1,18 @@
+class Solution(object):
+    def subsetsWithDup(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        # for combination problem, please pay attention to the 'sort' and 'duplicate'
+        result = []
+        nums.sort()
+        self.helper(result, nums, [], 0)
+        return result
+    
+    def helper(self, result, nums, temp, idx):
+        result.append(temp)
+        for i in range(idx, len(nums)):
+            if i > idx and nums[i] == nums[i - 1]:
+                continue
+            self.helper(result, nums, temp + [nums[i]], i + 1)
