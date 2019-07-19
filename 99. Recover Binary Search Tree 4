@@ -1,0 +1,39 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def recoverTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: None Do not return anything, modify root in-place instead.
+        """
+        prev = None
+        stack = []
+        result = []
+        small_node = None
+        while root or stack:
+            while root:
+                stack.append(root)
+                root = root.left
+            node = stack.pop()
+            if prev is not None and prev.val > node.val:
+                small_node = node
+            prev = node
+            result.append(node)
+            if node.right:
+                root = node.right
+                
+        for i in range(len(result) - 1):
+            if result[i].val > result[i + 1].val:
+                temp = small_node.val
+                small_node.val = result[i].val
+                result[i].val = temp
+                break
+        time complexity is O(N), space complexity is also O(N)
+        # use in-order to find the node who smaller than previous node.
+        # use the result list to save all the node. find the one who is bigger than the later. then switch these two values
+                
