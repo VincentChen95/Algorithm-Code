@@ -1,0 +1,39 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def generateTrees(self, n):
+        """
+        :type n: int
+        :rtype: List[TreeNode]
+        """
+        if n == 0:
+            return []
+        return self.gen_trees(1, n, {})
+        
+    def gen_trees(self, s, e, memo):
+        if e < s:
+            return [None]
+        ret_list = []
+        if (s, e) in memo:
+            return memo[s, e]
+        for i in range(s, e + 1):
+            list_left = self.gen_trees(s, i - 1, memo)
+            list_right = self.gen_trees(i + 1, e, memo)
+            for left in list_left:
+                for right in list_right:
+                    root = TreeNode(i)
+                    root.left = left
+                    root.right = right
+                    ret_list.append(root)
+        memo[s, e] = ret_list
+        return ret_list
+        
+        
+        
+        
+        
