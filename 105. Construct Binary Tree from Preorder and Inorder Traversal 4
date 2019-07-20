@@ -1,0 +1,27 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def buildTree(self, preorder, inorder):
+        """
+        :type preorder: List[int]
+        :type inorder: List[int]
+        :rtype: TreeNode
+        """
+        if len(preorder) == 0:
+            return None
+        if len(preorder) == 1:
+            return TreeNode(preorder[0])
+        root_value = preorder[0]
+        root = TreeNode(root_value)
+        root_index = inorder.index(root_value)
+        # why the slice for preorder is [1 : 1 + root_index]?
+        # it depends on how many nodes on the nodes? the root_index at the inorder
+        # equal to the number of nodes on the left tree!
+        root.left = self.buildTree(preorder[1 : 1 + root_index], inorder[ : root_index])
+        root.right = self.buildTree(preorder[root_index + 1 : ], inorder[root_index + 1 : ])
+        return root
