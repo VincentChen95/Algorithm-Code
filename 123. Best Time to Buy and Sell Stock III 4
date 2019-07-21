@@ -1,0 +1,28 @@
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if len(prices) == 0:
+            return 0
+        dp = [0]*len(prices)
+        min_value = prices[0]
+        for i in range(1, len(prices)):
+            # we can chose sell or hold at ith day, depends on profit
+            dp[i] = max(dp[i - 1], prices[i] - min_value)
+            min_value = min(min_value, prices[i])
+        # why we chose result = max(dp), dp means we only buy and sell one time,
+        # sometimes, we cannot make more money two times than just one time
+        result = max(dp)
+        max_value = prices[-1]
+        # check from the back, second sell
+        for i in range(len(prices) - 2, 1, -1):
+            # we can chose the ith day to buy the second time
+            result = max(result, dp[i - 1] + max_value - prices[i])
+            max_value = max(max_value, prices[i])
+        return result
+    
+    
+    
+    # https://www.hrwhisper.me/leetcode-best-time-to-buy-and-sell-stock-i-ii-iii-iv/
