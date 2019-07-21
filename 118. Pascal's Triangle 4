@@ -1,0 +1,18 @@
+class Solution(object):
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        if numRows == 0:
+            return []
+        if numRows == 1:
+            return [[1]]
+        dp = [[1], [1,1]]
+        for i in range(3, numRows + 1):
+            temp = [1]*i
+            for j in range(i):
+                if j > 0 and j < i - 1:
+                    temp[j] = dp[-1][j-1] + dp[-1][j]
+            dp.append(temp)
+        return dp
