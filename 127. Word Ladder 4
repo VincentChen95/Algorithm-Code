@@ -1,0 +1,24 @@
+class Solution(object):
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+        wordset = set(wordList)
+        queue = collections.deque([(beginWord, 1)])
+        while queue:
+            word, length = queue.popleft()
+            if word == endWord:
+                return length
+            for i in range(len(word)):
+                for j in 'abcdefghijklmnopqrstuvwxyz':
+                    new_word = word[ : i] + j + word[i + 1:]
+                    if new_word in wordset and new_word != word:
+                # we need to remove it so that next round we will not take it again
+                        wordset.remove(new_word)
+                        queue.append((new_word, length + 1))
+        return 0
+    
+    # 为什么可以在wordset里直接删除？因为删除的时候是第一次遇到，第二次遇到的时候，总会比第一次遇到的时候长，所以在第一次就可以删除了，第二次根本就不会走
