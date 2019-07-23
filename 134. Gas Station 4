@@ -1,0 +1,18 @@
+class Solution(object):
+    def canCompleteCircuit(self, gas, cost):
+        """
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
+        """
+        overall = rest = start = 0
+        for i in range(len(gas)):
+            rest += gas[i] - cost[i]
+            overall += gas[i] - cost[i]
+            # if rest < 0, we need to renew it
+            if rest < 0:
+                rest = 0
+                start = i + 1
+        return start if overall >=0 else -1
+    
+    
