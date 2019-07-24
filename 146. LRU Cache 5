@@ -1,0 +1,67 @@
+class ListNode(object):
+    def __init__(self,key,value):
+        self.key = key
+        self.value = value
+        self.prev = None
+        self.next = None
+
+class LRUCache(object):
+
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.capacity = capacity
+        self.size = 0
+        self.dic = {}
+        self.head = ListNode(0,0)
+        self.tail = ListNode(0,0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        
+    def unlink_node(self,node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+        node.prev = None
+        node.next = None
+        
+    def insert_head(self,node):
+        node.prev = self.head
+        node.next = self.head.next
+        self.head.next.prev = node
+        self.head.next = node
+        
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key not in self.dic:
+            return -1
+        node = self.dic[key]
+        self.unlink_node(node)
+        self.insert_head(node)
+        return node.value
+        
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: None
+        """
+        if key in self.dic:
+            node = self.dic[key]
+            node.value = value
+            self.unlink_node(node)
+            self.insert_head(node)
+        else:
+            if self.size == self.capacity:
+                least_recently_used_node = self.tail.prev
+                self.unlink_node(least_recently_used_node)
+                del self.dic[least_recently_used_node.key]
+                self.size -= 1
+            new_node = ListNode(key,value)
+            self.insert_head(new_node)
+            self.dic[key] = new_node
+            self.size += 1
