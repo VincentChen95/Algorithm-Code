@@ -1,0 +1,30 @@
+class Solution(object):
+    def isOneEditDistance(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        if s == t:
+            return False
+        diff = len(s) - len(t)
+        if abs(diff) > 1:
+            return False
+        # delete
+        if diff == 1:
+            return self.insert_delect_check(s, t)
+        # insert
+        if diff == -1:
+            return self.insert_delect_check(t, s)
+        # replace
+        if diff == 0:
+            for i in range(len(s)):
+                if s[:i] + s[i+1:] == t[:i] + t[i+1:]:
+                    return True
+        return False
+    
+    def insert_delect_check(self, l, s):
+        for i in range(len(l)):
+            if l[:i] + l[i+1:] == s:
+                return True
+        return False
