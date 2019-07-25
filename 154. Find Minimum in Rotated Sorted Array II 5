@@ -1,0 +1,24 @@
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if nums is None or len(nums) == 0:
+            return None
+        start = 0
+        end = len(nums) - 1
+        while start + 1 < end:
+            # just for case like [3,3,1,3] or [1,1,1]
+            while end > start and nums[start + 1] == nums[start]:
+                start += 1
+            mid = start + (end - start)//2
+            if nums[start] <= nums[mid] <= nums[end]:
+                end = mid
+            elif nums[mid] >= max(nums[end], nums[start]):
+                start = mid
+            elif nums[mid] <= min(nums[end], nums[start]):
+                end = mid
+        return min(nums[start : end + 1])
+        
+        # 考虑四种情况！
