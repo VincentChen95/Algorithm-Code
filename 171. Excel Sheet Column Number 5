@@ -1,0 +1,11 @@
+class Solution(object):
+    def titleToNumber(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        res = 0
+        for idx, ele in enumerate(s[::-1]):
+            res += (ord(ele) - 64)*26**idx
+        return res
+    # a-z 1-26, aa-zz 26*26, aaa-zzz 26*26*26
