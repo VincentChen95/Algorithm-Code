@@ -1,0 +1,17 @@
+class Solution(object):
+    def findRepeatedDnaSequences(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        if s is None or len(s) < 10:
+            return []
+        result = set()
+        visited = set()
+        for i in range(9, len(s)):
+            temp = s[i - 9 : i + 1]
+            if temp not in visited:
+                visited.add(temp)
+            else:
+                result.add(temp)
+        return list(result)
