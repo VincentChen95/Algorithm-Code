@@ -1,0 +1,22 @@
+class Solution(object):
+    def isIsomorphic(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        if len(s) != len(t):
+            return False
+        dic = {}
+        visited = set()
+        for i, j in zip(s, t):
+            if i not in dic:
+                dic[i] = j
+                if j not in visited:
+                    visited.add(j)
+                else:
+                    return False
+            else:
+                if dic[i] != j:
+                    return False
+        return True
