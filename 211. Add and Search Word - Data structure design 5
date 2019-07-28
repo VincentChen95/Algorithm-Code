@@ -1,0 +1,48 @@
+class TrieNode(object):
+    def __init__(self):
+        self.next = collections.defaultdict(TrieNode)
+        self.is_word = False
+class WordDictionary(object):
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.root = TrieNode()
+
+    def addWord(self, word):
+        """
+        Adds a word into the data structure.
+        :type word: str
+        :rtype: None
+        """
+        node = self.root
+        for w in word:
+            node = node.next[w]
+        node.is_word = True
+
+    def search(self, word):
+        """
+        Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter.
+        :type word: str
+        :rtype: bool
+        """
+        node = self.root
+        self.flag = False
+        self.helper(node, word)
+        return self.flag
+    
+    def helper(self, node, word):
+        if len(word) == 0:
+            if node.is_word:
+                self.flag = True
+            return
+        if word[0] == '.':
+            for n in node.next.values():
+                self.helper(n, word[1:])
+        elif word[0] in node.next:
+            self.helper(node.next[word[0]], word[1:])
+# Your WordDictionary object will be instantiated and called as such:
+# obj = WordDictionary()
+# obj.addWord(word)
+# param_2 = obj.search(word)
