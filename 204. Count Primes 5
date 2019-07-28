@@ -1,0 +1,18 @@
+class Solution(object):
+    def countPrimes(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n <= 2:
+            return 0
+        result = [1]*n
+        result[0] = result[1] = 0
+        for i in range(2, int(math.sqrt(n)) + 1):
+            if result[i] == 1:
+                for j in range(2, (n-1)//i + 1):
+                    result[j*i] = 0
+        return sum(result)
+    
+    # https://zh.wikipedia.org/wiki/%E5%9F%83%E6%8B%89%E6%89%98%E6%96%AF%E7%89%B9%E5%B0%BC%E7%AD%9B%E6%B3%95
+    # 在2到n的平方根中，找到所有的素数，将其倍乘得到非素数，然后排除掉
