@@ -1,0 +1,22 @@
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # we have choice rob from first or second
+        if nums is None or len(nums) == 0:
+            return 0
+        if len(nums) == 1:
+            return nums[0]
+        return max(self.helper(nums[:-1]), self.helper(nums[1:]))
+        
+    def helper(self, nums):
+        if len(nums) == 1:
+            return nums[0]
+        dp = [0]*len(nums)
+        dp[0] = nums[0]
+        for i in range(1, len(nums)):
+            temp = nums[i] + dp[i-2] if i >= 2 else nums[i]
+            dp[i] = max(dp[i-1], temp)
+        return dp[-1]
