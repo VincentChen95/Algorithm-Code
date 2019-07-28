@@ -1,0 +1,26 @@
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        if len(prerequisites) == 0:
+            return True
+        father_to_son = collections.defaultdict(list)
+        son_to_father = collections.defaultdict(list)
+        for son, father in prerequisites:
+            father_to_son[father].append(son)
+            son_to_father[son].append(father)
+            
+        stack = [i for i in father_to_son if i not in son_to_father]
+        if len(stack) == 0:
+            return False
+        while stack:
+            node = stack.pop()
+            for son in father_to_son[node]:
+                son_to_father[son].remove(node)
+                if len(son_to_father[son]) == 0:
+                    stack.append(son)
+                    del son_to_father[son]
+        return len(son_to_father.keys()) == 0
