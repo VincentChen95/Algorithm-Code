@@ -1,0 +1,27 @@
+class Solution(object):
+    def findOrder(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: List[int]
+        """
+        if prerequisites is None or len(prerequisites) == 0:
+            return [i for i in range(numCourses - 1, -1, -1)]
+        
+        father_to_son = collections.defaultdict(set)
+        son_to_father = collections.defaultdict(set)
+        for son, father in prerequisites:
+            father_to_son[father].add(son)
+            son_to_father[son].add(father)
+        result = [i for i in range(numCourses) if (i not in father_to_son and i not in son_to_father)]
+        # take out the in-dgree is 0
+        stack = [i for i in father_to_son if i not in son_to_father]
+        while stack:
+            node = stack.pop()
+            result.append(node)
+            for son in father_to_son[node]:
+                son_to_father[son].remove(node)
+                if len(son_to_father[son]) == 0:
+                    stack.append(son)
+                    del son_to_father[son]
+        return result if len(son_to_father.keys()) == 0 else []
