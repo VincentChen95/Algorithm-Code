@@ -1,0 +1,25 @@
+class Solution(object):
+    def containsNearbyAlmostDuplicate(self, nums, k, t):
+        """
+        :type nums: List[int]
+        :type k: int
+        :type t: int
+        :rtype: bool
+        """
+        if k <= 0 or t < 0:
+            return False
+        key_to_value = {}
+        for idx, num in enumerate(nums):
+            key = num//(t+1)
+            if key in key_to_value:
+                return True
+            if key - 1 in key_to_value and num - key_to_value[key - 1] <= t:
+                return True
+            if key + 1 in key_to_value and key_to_value[key + 1] - num <= t:
+                return True
+            if idx >= k:
+                del key_to_value[nums[idx-k]//(t+1)]
+            key_to_value[key] = num
+        return False
+        # 维持一个大小为k的字典，在这个字典里，用num//(t+1)成为key值，相邻两个key值，key - 1, key+1,字典里的value就是num值，还需要检查两者差值是不是小于t
+        # https://www.hrwhisper.me/leetcode-contains-duplicate-i-ii-iii/
