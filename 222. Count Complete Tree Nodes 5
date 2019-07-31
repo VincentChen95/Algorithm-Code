@@ -1,0 +1,33 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def countNodes(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if root is None:
+            return 0
+        left_hight = self.get_hight(root.left)
+        right_hight = self.get_hight(root.right)
+        
+        # the left size is full
+        if left_hight == right_hight:
+            return 2**left_hight + self.countNodes(root.right)
+        elif left_hight > right_hight:
+            return 2**right_hight + self.countNodes(root.left)
+        
+        
+    def get_hight(self, root):
+        h = 0
+        while root:
+            h += 1
+            root = root.left
+        return h
+        
+        时间复杂度：第一次查logN,第二次是logN -1,第三次是logN -2。一直到1.所以O(logN*logN)
