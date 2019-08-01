@@ -1,0 +1,22 @@
+class Solution(object):
+    def groupStrings(self, strings):
+        """
+        :type strings: List[str]
+        :rtype: List[List[str]]
+        """
+        dic = collections.defaultdict(list)
+        # abc 0, 1, 2
+        # xzy 0, 1, 2
+        for string in strings:
+            start = ord(string[0])
+            temp = [0]
+            if len(string) > 1:
+                for s in string[1:]:
+                    # % 26是为了 az
+                    temp.append(str((ord(s) - start) % 26))
+                    # ba, 求出来是-1, -1对16取模得到25，结果和az一样
+            temp = tuple(temp)
+            dic[temp].append(string)
+        return [x for x in dic.values()]
+        
+        
