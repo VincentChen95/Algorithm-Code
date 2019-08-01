@@ -1,0 +1,22 @@
+class Solution(object):
+    def productExceptSelf(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        if nums is None or len(nums) <= 1:
+            return nums
+        right = [1]*len(nums)
+        right[-1] = nums[-1]
+        for i in range(len(nums) - 2, -1, -1):
+            right[i] = right[i+1]*nums[i]
+        result = [0]*len(nums)
+        temp = 1
+        for i in range(len(nums)):
+            if i != len(nums) - 1:
+                result[i] = temp*right[i+1]
+                temp *= nums[i] 
+            else:
+                result[i] = temp
+        return result
+                
