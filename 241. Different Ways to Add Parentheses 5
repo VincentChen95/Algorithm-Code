@@ -1,0 +1,30 @@
+class Solution(object):
+    def diffWaysToCompute(self, input):
+        """
+        :type input: str
+        :rtype: List[int]
+        """
+        if input is None or len(input) == 0:
+            return 0
+        if input.isdigit():
+            return [int(input)]
+        result = []
+        for i in range(len(input)):
+            if input[i] in ['-', '+', '*']:
+                left = self.diffWaysToCompute(input[:i])
+                right = self.diffWaysToCompute(input[i+1:])
+                for a in left:
+                    for b in right:
+                        result.append(self.helper(a, b, input[i]))
+        return result
+    
+    def helper(self, a, b, op):
+        if op == '+':
+            return a + b
+        elif op == '-':
+            return a - b
+        else:
+            return a*b
+            
+            
+            该题目和 有N个节点能生成几个二叉树极为相似，是 卡特兰数 问题
