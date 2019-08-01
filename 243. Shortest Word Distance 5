@@ -1,0 +1,18 @@
+class Solution(object):
+    def shortestDistance(self, words, word1, word2):
+        """
+        :type words: List[str]
+        :type word1: str
+        :type word2: str
+        :rtype: int
+        """
+        word_idx_1 = word_idx_2 = None
+        result = len(words) + 1
+        for idx, ele in enumerate(words):
+            if ele == word1:
+                word_idx_1 = idx
+            elif ele == word2:
+                word_idx_2 = idx
+            if word_idx_1 is not None and word_idx_2 is not None:
+                result = min(result, abs(word_idx_2 - word_idx_1))
+        return result
