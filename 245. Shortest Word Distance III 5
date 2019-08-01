@@ -1,0 +1,31 @@
+class Solution(object):
+    def shortestWordDistance(self, words, word1, word2):
+        """
+        :type words: List[str]
+        :type word1: str
+        :type word2: str
+        :rtype: int
+        """
+        result = float('inf')
+        if word1 != word2:
+            dic = collections.defaultdict(list)
+            for idx, ele in enumerate(words):
+                dic[ele].append(idx)
+        
+            word1_idx = dic[word1]
+            word2_idx = dic[word2]
+            i = j = 0
+            while i < len(word1_idx) and j < len(word2_idx):
+                result = min(result, abs(word2_idx[j] - word1_idx[i]))
+                if word2_idx[j] > word1_idx[i]:
+                    i += 1
+                else:
+                    j += 1
+        else:
+            temp = -1
+            for idx, ele in enumerate(words):
+                if ele == word1:
+                    if temp != -1:
+                        result = min(result, idx - temp)
+                    temp = idx
+        return result
