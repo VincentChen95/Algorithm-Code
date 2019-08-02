@@ -1,0 +1,23 @@
+class Solution(object):
+    def getFactors(self, n):
+        """
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        result = []
+        self.helper(result, 2, n, [])
+        # 要拿掉最后一个[1, n]这样的情形
+        return result[:-1]
+        
+        
+    def helper(self, result, bound, n, temp):
+        if n == 1:
+            result.append(temp[:])
+            return
+        for i in range(bound, int(n**0.5) + 1):
+            if n % i == 0:
+                self.helper(result, i, n/i, temp + [i])
+        # 她自己也可以
+        self.helper(result, n, 1, temp + [n])
+        
+        # https://leetcode.com/problems/factor-combinations/discuss/68123/Alternative-Python-solution
