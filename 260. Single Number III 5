@@ -1,0 +1,24 @@
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        result = 0
+        for i in nums:
+            result ^= i
+        # 这个异或结果剩下来就是那两个数的异或
+        mask = 1
+        # 两个不同数，至少有一个使得异或的结果result中出现1
+        # 找到这个第一个出现1的地方作为mask就可以了
+        while mask & result == 0:
+             mask <<= 1
+        num1 = num2 = 0
+        for num in nums:
+            if num & mask == 0:
+                num1 ^= num
+            else:
+                num2 ^= num
+        return [num1, num2]
+    # https://blog.csdn.net/fuxuemingzhu/article/details/79434100
+        
