@@ -1,0 +1,12 @@
+class Solution(object):
+    def canPermutePalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        if len(s) <= 1:
+            return True
+        dic = {}
+        for i in s:
+            dic[i] = dic.get(i, 0) + 1
+        return len([key for key in dic if dic[key]%2 == 1]) <= 1
