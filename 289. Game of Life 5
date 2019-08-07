@@ -1,0 +1,31 @@
+import copy
+class Solution:
+    def gameOfLife(self, board):
+        """
+        :type board: List[List[int]]
+        :rtype: void Do not return anything, modify board in-place instead.
+        """
+        row = len(board)
+        col = len(board[0])
+        new_board = copy.deepcopy(board)
+        for i in range(row):
+            for j in range(col):
+                count = self.helper(new_board, i, j)
+                if new_board[i][j] == 1:
+                    if count < 2 or count > 3:
+                        board[i][j] = 0
+                else:
+                    if count == 3:
+                        board[i][j] = 1
+                     
+    def helper(self, board, i, j):
+        count = 0
+        for a, b in [[1, 0], [-1, 0], [0, 1], [0, -1],[1, 1], [1, -1], [-1, 1], [-1, -1]]:
+            if 0 <= i + a < len(board) and 0 <= j + b < len(board[0]):
+                count += board[i+a][j+b]
+        return count
+        
+        
+        使用 a[:], list(a), a*1, copy.copy(a)四种方式复制列表结果都可以得到一个新的列表，但是如果列表中含有列表，
+        所有b, c, d, e四个新列表的子列表都是指引到同一个对象上。只有使用copy.deepcopy(a)方法得到的新列表f才是包括子列表在内的完全复制。
+        # https://www.cnblogs.com/wilber2013/p/4645353.html 深拷贝 浅拷贝
