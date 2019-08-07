@@ -1,0 +1,62 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        if root is None:
+            return '[]'
+        result = '['
+        queue = collections.deque([root])
+        while queue:
+            iteration = len(queue)
+            for i in range(iteration):
+                node = queue.popleft()
+                if node is None:
+                    result += 'null,'
+                else:
+                    result += str(node.val) + ','
+                    queue.append(node.left)
+                    queue.append(node.right)
+        result = result[:-1] + ']'
+        return result
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        if len(data) <= 2:
+            return None
+        data = data[1:-1].split(',')
+        root = TreeNode(data.pop(0))
+        queue = collections.deque([root])
+        while queue:
+            iteration = len(queue)
+            for i in range(iteration):
+                node = queue.popleft()
+                left = data.pop(0)
+                right = data.pop(0)
+                if left != 'null':
+                    left_node = TreeNode(int(left))
+                    node.left = left_node
+                    queue.append(left_node)
+                if right != 'null':
+                    right_node = TreeNode(int(right))
+                    node.right = right_node
+                    queue.append(right_node)
+        return root
+
+# Your Codec object will be instantiated and called as such:
+# codec = Codec()
+# codec.deserialize(codec.serialize(root))
