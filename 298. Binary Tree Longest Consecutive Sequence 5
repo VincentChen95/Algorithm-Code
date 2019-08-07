@@ -1,0 +1,23 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def longestConsecutive(self, root: TreeNode) -> int:
+        if root is None:
+            return 0
+        result = 0
+        stack = [(root, 1)]
+        while stack:
+            node, count = stack.pop()
+            result = max(result, count)
+            for temp in [node.left, node.right]:
+                if temp:
+                    if temp.val == node.val + 1:
+                        stack.append((temp, count + 1))
+                    else:
+                        stack.append((temp, 1))
+        return result
