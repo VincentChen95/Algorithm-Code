@@ -1,0 +1,18 @@
+class Solution:
+    def wordPattern(self, pattern: str, str: str) -> bool:
+        str_list = str.split(' ')
+        if len(str_list) != len(pattern):
+            return False
+        dic = {}
+        visited = set()
+        for i, j in zip(pattern, str_list):
+            if j not in dic:
+                if i not in visited:
+                    dic[j] = i
+                    visited.add(i)
+                else:
+                    return False
+            else:
+                if dic[j] != i:
+                    return False
+        return True
