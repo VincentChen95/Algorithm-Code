@@ -1,0 +1,44 @@
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.tree = [0]*(len(nums)*2)
+        self.build_tree(nums)
+        self.size = len(nums)
+        
+    def build_tree(self, nums):
+        self.tree[len(nums):] = nums[:]
+        for i in range(len(nums)-1, -1, -1):
+            self.tree[i] = self.tree[2*i] + self.tree[2*i+1]
+            
+    def update(self, i: int, val: int) -> None:
+        i += self.size
+        self.tree[i] = val
+        while i > 0:
+            left_node_idx = i - 1 if i % 2 == 1 else i
+            right_node_idx = i if i % 2 == 1 else i + 1
+            self.tree[i//2] = self.tree[left_node_idx] + self.tree[right_node_idx]
+            i //= 2
+
+    def sumRange(self, i: int, j: int) -> int:
+        # 本质上来说，i是左节点，j是有节点，我们求子节点和的时候，是左边为2*i,右边是2*i+1
+        # 所以我们希望左边节点是偶数，右边是奇数，如果不是，我们就移动他，使其成为偶数和奇数，这样
+        # 我们就能找到两者的共同父节点
+        i += self.size
+        j += self.size
+        result = 0
+        while i <= j:
+            if i % 2 == 1:
+                result += self.tree[i]
+                i += 1
+            if j % 2 == 0:
+                result += self.tree[j]
+                j -= 1
+            i //= 2
+            j //= 2
+        return result
+
+
+# Your NumArray object will be instantiated and called as such:
+# obj = NumArray(nums)
+# obj.update(i,val)
+# param_2 = obj.sumRange(i,j)
