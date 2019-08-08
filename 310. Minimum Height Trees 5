@@ -1,0 +1,19 @@
+class Solution:
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        if n == 1:
+            return [0]
+        edge_dic = collections.defaultdict(set)
+        for node_1, node_2 in edges:
+            edge_dic[node_1].add(node_2)
+            edge_dic[node_2].add(node_1)
+        queue = [i for i in range(n) if len(edge_dic[i]) == 1]
+        while n > 2:
+            iteration = len(queue)
+            n -= iteration
+            for i in range(iteration):
+                node = queue.pop(0)
+                for neighbor in edge_dic[node]:
+                    edge_dic[neighbor].remove(node)
+                    if len(edge_dic[neighbor]) == 1:
+                        queue.append(neighbor)
+        return queue
