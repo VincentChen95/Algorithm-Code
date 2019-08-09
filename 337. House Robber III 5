@@ -1,0 +1,18 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def rob(self, root: TreeNode) -> int:
+        return self.helper(root)[0]
+        
+    def helper(self, node):
+        if node is None:
+            return 0, 0
+        rob_left, no_rob_left = self.helper(node.left)
+        rob_right, no_rob_right = self.helper(node.right)
+        # 左边这一项代表该点能产生最大的收益
+        return max(rob_left + rob_right, no_rob_left + no_rob_right + node.val), rob_left + rob_right
