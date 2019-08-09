@@ -1,0 +1,18 @@
+class Solution:
+    def maxSubArrayLen(self, nums: List[int], k: int) -> int:
+        if len(nums) == 0:
+            return 0
+        sum_ = 0
+        dic = {}
+        dic[0] = 0
+        result = 0
+        for i in range(len(nums)):
+            sum_ += nums[i]
+            if (sum_ - k) in dic:
+                result = max(result, i - dic[sum_ - k] + 1)
+            if sum_ not in dic:
+                # 已经在的不用管，因为我们只要保留最远的距离
+                dic[sum_] = i + 1
+        return result
+    # https://blog.csdn.net/qq508618087/article/details/50811818
+            
