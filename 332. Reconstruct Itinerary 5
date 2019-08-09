@@ -1,0 +1,18 @@
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        start_to_end = collections.defaultdict(list)
+        for start, end in tickets:
+            start_to_end[start].append(end)
+            
+        for key in start_to_end.keys():
+            start_to_end[key].sort()
+            
+        result = []
+        stack = ['JFK']
+        while stack:
+            start = stack.pop()
+            result.append(start)
+            for i in range(len(start_to_end[start])):
+                end = start_to_end[start].pop()
+                stack.append(end)
+        return result
