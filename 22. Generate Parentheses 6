@@ -1,0 +1,19 @@
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        result = []
+        self.helper(result, '', n, n)
+        return result
+        
+    def helper(self, result, temp, left, right):
+        if left == 0 and right == 0:
+            result.append(temp)
+            return
+        if left > 0:
+            self.helper(result, temp + '(', left - 1, right)
+        if left < right:
+            self.helper(result, temp + ')', left, right - 1)
+        # https://blog.csdn.net/fuxuemingzhu/article/details/79362373
