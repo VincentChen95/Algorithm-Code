@@ -1,0 +1,16 @@
+class Solution(object):
+    def multiply(self, num1, num2):
+        """
+        :type num1: str
+        :type num2: str
+        :rtype: str
+        """
+        result = digit_1 = 0
+        for i in num1[::-1]:
+            digit_2 = 0
+            for j in num2[::-1]:
+                result += (ord(j) - ord('0'))*10**digit_2*(ord(i) - ord('0'))*10**digit_1
+                digit_2 += 1
+            digit_1 += 1
+        return str(result)
+        
