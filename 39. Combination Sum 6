@@ -1,0 +1,27 @@
+class Solution(object):
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        if candidates is None or len(candidates) == 0:
+            return []
+        result = []
+        self.helper(result, candidates, target, 0, [])
+        return result
+    
+    def helper(self, result, candidates, target, idx, path):
+        if target == 0:
+            result.append(path)
+            return 
+        elif target > 0:
+            for i in range(idx, len(candidates)):
+                self.helper(result, candidates, target - candidates[i], i, path + [candidates[i]])
+                
+                
+                
+                time complexity is O(2^N)
+                T(2) = T(1)
+                T(3) = T(2) + T(1)
+                T(4) = T(3) + T(2) + T(1)
