@@ -1,0 +1,22 @@
+class Solution(object):
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """   
+        if matrix:
+            i = 0
+            j = len(matrix) - 1
+            while i < j :
+                matrix[i], matrix[j] = matrix[j], matrix[i]
+                i += 1
+                j -= 1
+            for i in range(len(matrix)):
+                for j in range(i, len(matrix)):
+                    matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+                    
+# 做法挺简单，先上下翻转，再延左上到右下的对角线进行翻转(镜像操作)。
+
+# 需要注意的是上下翻转的时候是rows-i-1，而不是rows-i。
+
+# https://blog.csdn.net/fuxuemingzhu/article/details/79451733
