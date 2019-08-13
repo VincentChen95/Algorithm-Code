@@ -1,0 +1,21 @@
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        result = []
+        self.helper(result, nums, [])
+        return result
+    
+    def helper(self, result, nums, path):
+        if len(nums) == 0:
+            result.append(path)
+            return
+        for i in range(len(nums)):
+            ele = nums[i]
+            self.helper(result, nums[:i] + nums[i+1:], path + [ele])
+            
+    # 递推公式是T(n) = n * T(n-1)
+    # 算出来时间复杂度是O(N!)
+    空间复杂度也是阶乘
