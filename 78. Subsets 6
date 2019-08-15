@@ -1,0 +1,19 @@
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        if nums is None or len(nums) == 0:
+            return []
+        result = []
+        self.helper(result, nums, 0, [])
+        return result
+    
+    def helper(self, result, nums, idx, temp):
+        result.append(temp)
+        if idx == len(nums):
+            return
+        for i in range(idx, len(nums)):
+            self.helper(result, nums, i + 1, temp + [nums[i]])
+                
