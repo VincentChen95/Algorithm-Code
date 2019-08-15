@@ -1,0 +1,21 @@
+class Solution(object):
+    def subsetsWithDup(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        if nums is None or len(nums) == 0:
+            return []
+        result = []
+        nums.sort()
+        self.helper(result, nums, 0, [])
+        return result
+    
+    def helper(self, result, nums, idx, temp):
+        result.append(temp)
+        if idx == len(nums):
+            return 
+        for i in range(idx, len(nums)):
+            if i > idx and nums[i] == nums[i-1]:
+                continue
+            self.helper(result, nums, i + 1, temp + [nums[i]])
