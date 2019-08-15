@@ -1,0 +1,17 @@
+class Solution(object):
+    def combine(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: List[List[int]]
+        """        
+        result = []
+        self.helper(result, [], n, k, 1)
+        return result
+    
+    def helper(self, result, temp, n, k, idx):
+        if len(temp) == k:
+            result.append(temp[:])
+            return
+        for i in range(idx, n + 1):
+            self.helper(result, temp + [i], n, k, i + 1)
